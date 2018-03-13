@@ -42,3 +42,6 @@
 .am-tabs-default-bar-underline {
     border : 1px #5555FF solid
 }
+.mytabs .am-tabs-tab-bar-wrap{
+    position: relative !important;
+}

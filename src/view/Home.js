@@ -57,12 +57,13 @@ class Home extends Component {
     render() {
         return (
 
-            <div class="home-constainer">
-                <div class="home-search">
-                    <SearchBar placeholder="输入关键字搜索" />
+            <div>
 
-                </div>
                 <div class="home-constainer">
+                    <div class="home-search">
+                        <SearchBar placeholder="输入关键字搜索" />
+
+                    </div>
                     <Carousel
                         autoplay={false}
                         infinite
@@ -90,7 +91,12 @@ class Home extends Component {
                         ))}
 
                     </Carousel>
-                    </div>
+
+
+
+                </div>
+
+                <div className="mytabs">
                     <Tabs tabs={tabs}
                           initialPage={1}
                           onChange={(tab, index) => { console.log('onChange', index, tab);}}
@@ -118,8 +124,10 @@ class Home extends Component {
 
                         </div>
                     </Tabs>
-
+                </div>
             </div>
+
+
         );
     }
 }

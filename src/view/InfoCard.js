@@ -29,7 +29,10 @@ class InfoCard extends Component {
                   <Card.Body style={{wordWrap:'break-word'}}>
                       <div style={{fontSize:'18px'}}>这是题目这是题目</div>
                       {/*Hello world Hello worldHello worldHello worldHello worldHello worldHello world*/}
-                      <div style={{width:'100%', color:'#b4b4b4', fontSize:'13px', wordWrap:'break-word', whiteSpace:'normal'}}>这是内容这是内容，这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容</div>
+                      <div style={{width:'100%', color:'#b4b4b4', fontSize:'13px', wordWrap:'break-word', whiteSpace:'normal'}}>这是内容这是内容，
+                          这是内容这是内容这是内容这是内容这是内容,
+                          这是内容这是内容这是内容这是内容这是内容,
+                          这是内容这是内容这是内容这是内容</div>
 
                   </Card.Body>
                   <Card.Footer content={

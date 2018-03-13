@@ -49,7 +49,7 @@ class MainLayout extends Component {
                 >
                     微投诉
                 </NavBar>
-                <div style="height:100vh;">
+                <div class="app page">
                     <TabBar
                         unselectedTintColor="#949494"
                         tintColor="#33A3F4"
