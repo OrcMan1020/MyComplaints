@@ -1,0 +1,112 @@
+/*.pt-si-enter {
+  transform: translate3d(100%,0,0);
+  transition: transform .3s, opacity .3s;transition: transform 3s, opacity 3s;
+  z-index: 1;
+  opacity: 0.01;
+}
+.pt-si-enter.pt-si-enter-active {
+  transform: translate3d(0,0,0);
+  opacity: 1;
+}
+
+.pt-si-exit {
+  transform: translate3d(0,0,0);
+  transition: transform .3s, opacity .3s;transition: transform 3s, opacity 3s;
+  opacity: .9;
+}
+.pt-si-exit.pt-si-exit-active {
+  transform: translate3d(-20%,0,0);
+  opacity: 0.01;
+}
+
+.pt-so-enter {
+  transform: translate3d(-20%,0,0);
+  transition: transform .3s, opacity .3s;transition: transform 3s, opacity 3s;
+  z-index: 1;
+  opacity: 0.9;
+}
+
+.pt-so-enter.pt-so-enter-active {
+  transform: translate3d(0,0,0);
+  opacity: 1;
+}
+
+.pt-so-exit {
+  transform: translate3d(0,0,0);
+  transition: transform .3s, opacity .3s;transition: transform 3s, opacity 3s;
+  opacity: 1;
+}
+.pt-so-exit.pt-so-exit-active {
+  transform: translate3d(100%,0,0);
+  opacity: 0.9;
+}*/
+
+.pt-si-enter-active, .pt-so-exit {
+  pointer-events: none;
+  z-index: 200
+}
+
+.pt-si-exit, .pt-so-enter-active  {
+  pointer-events: none;
+  z-index: 10
+}
+
+.pt-si-enter-active,.pt-si-exit {
+  animation-duration: .4s;
+  /*animation-duration: 3s;*/
+  animation-fill-mode: forwards
+}
+
+.pt-si-enter-active {
+  animation-name: page-si-enter
+}
+
+.pt-si-exit {
+  animation-name: page-si-exit
+}
+
+.pt-so-enter-active,.pt-so-exit {
+  animation-duration: .4s;
+  /*animation-duration: 3s;*/
+  animation-fill-mode: forwards
+}
+
+.pt-so-enter-active {
+  animation-name: page-so-enter
+}
+
+.pt-so-exit {
+  animation-name: page-so-exit
+}
+
+@keyframes page-si-enter {
+  0% {
+    transform: translate3d(100%,0,0);
+  }
+  to {
+    transform: translateZ(0);
+  }
+}
+@keyframes page-si-exit {
+  to {
+    opacity: .9;
+    transform: translate3d(-20%,0,0)
+  }
+}
+@keyframes page-so-enter {
+  0% {
+    opacity: .9;
+    transform: translate3d(-20%,0,0)
+  }
+
+  to {
+    /*opacity: 1;*/
+    transform: translateZ(0)
+  }
+}
+@keyframes page-so-exit {
+  to {
+    opacity: .9;
+    transform: translate3d(100%,0,0)
+  }
+}

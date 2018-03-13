@@ -1,0 +1,41 @@
+.home-constainer {
+    position:relative;
+    /*height: 100%;*/
+}
+.home-search {
+    position:absolute;
+    /*padding-left: 24px;*/
+    /*padding-right: 24px;*/
+    /*background-color: #aaaaaa;*/
+    width: 100%;
+    z-index: 1;
+    /*border-style: solid;*/
+    /*border-color: #ff0000 #0000ff*/
+}
+.home-carousel {
+    position:absolute;
+}
+
+.am-search {
+    background-color: transparent;
+    padding-right: 16px;
+    padding-left: 16px;
+}
+.am-search-input {
+    width: 80%;
+    background-color:rgba(1,1,1,0.1);
+    border-radius: 16px;
+    height:28px;
+}
+
+.am-search-cancel {
+    color: #bbb;
+
+}
+
+.am-tabs-default-bar-tab-active{
+    color : #5555FF
+}
+.am-tabs-default-bar-underline {
+    border : 1px #5555FF solid
+}

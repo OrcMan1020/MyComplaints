@@ -1,0 +1,13 @@
+.ui-loading-wrap{
+  display: table;
+  width: 100%;
+  padding: 10px 15px;
+  text-align: center;
+  font-size: 14px;
+  color: #999;
+  box-sizing: border-box;
+}
+.ui-loading-wrap .ui-loading-inner{
+  display: table-cell;
+  vertical-align: middle;
+}
