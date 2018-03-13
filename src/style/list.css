@@ -4,3 +4,8 @@
 .am-list-item .am-list-line {
     padding-right: 0;
 }
+
+.am-card-body {
+    position : initial;
+    padding:1px 15px 6px
+}

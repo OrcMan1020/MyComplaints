@@ -26,7 +26,7 @@ class MainLayout extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedTab: 'redTab',
+            selectedTab: 'home',
             hidden: false,
             fullScreen: false,
         };
@@ -57,8 +57,8 @@ class MainLayout extends Component {
                         hidden={this.state.hidden}
                     >
                         <TabBar.Item
-                            title="Life"
-                            key="Life"
+                            title="首页"
+                            key="Home"
                             icon={<div style={{
                                 width: '22px',
                                 height: '22px',
@@ -71,17 +71,47 @@ class MainLayout extends Component {
                                 background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat' }}
                             />
                             }
-                            selected={this.state.selectedTab === 'blueTab'}
-                            badge={1}
+                            selected={this.state.selectedTab === 'home'}
                             onPress={() => {
                                 this.setState({
-                                    selectedTab: 'blueTab',
+                                    selectedTab: 'home',
                                 });
                             }}
                             data-seed="logId"
                         >
                             <Home></Home>
                         </TabBar.Item>
+
+
+                        <TabBar.Item
+                        icon={
+                            <div style={{
+                                width: '22px',
+                                height: '22px',
+                                background: 'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat' }}
+                            />
+                        }
+                        selectedIcon={
+                            <div style={{
+                                width: '22px',
+                                height: '22px',
+                                background: 'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat' }}
+                            />
+                        }
+                        title="投诉"
+                        key="complaint"
+                        selected={this.state.selectedTab === 'complaint'}
+                        onPress={() => {
+                            this.setState({
+                                selectedTab: 'complaint',
+                            });
+                        }}
+                        data-seed="logId1"
+                    >
+                        <Home></Home>
+                    </TabBar.Item>
+
+
                         <TabBar.Item
                             icon={
                                 <div style={{
@@ -97,19 +127,19 @@ class MainLayout extends Component {
                                     background: 'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat' }}
                                 />
                             }
-                            title="Koubei"
-                            key="Koubei"
-                            badge={'new'}
-                            selected={this.state.selectedTab === 'redTab'}
+                            title="我的"
+                            key="mine"
+                            selected={this.state.selectedTab === 'mine'}
                             onPress={() => {
                                 this.setState({
-                                    selectedTab: 'redTab',
+                                    selectedTab: 'mine',
                                 });
                             }}
                             data-seed="logId1"
                         >
                             <Home></Home>
                         </TabBar.Item>
+
                     </TabBar>
                 </div>
 

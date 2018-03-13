@@ -36,6 +36,9 @@
 .am-tabs-default-bar-tab-active{
     color : #5555FF
 }
+/*.am-tabs-default-bar-tab {*/
+    /*color : #bbb*/
+/*}*/
 .am-tabs-default-bar-underline {
     border : 1px #5555FF solid
 }

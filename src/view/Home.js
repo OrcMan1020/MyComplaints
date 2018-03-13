@@ -32,6 +32,26 @@ class Home extends Component {
         };
     }
 
+    renderList(type) {
+        return (
+            <List style={{width:'100%'}}>
+                <Item style={{backgroundColor:'#f6f6f6' }}>
+                    <InfoCar/>
+                    <WhiteSpace size="md"/>
+
+                    <InfoCar/>
+                    <WhiteSpace size="md"/>
+
+                    <InfoCar/>
+                    <WhiteSpace size="md"/>
+
+                    <InfoCar/>
+                    <LineCrossText>到底啦</LineCrossText>
+
+                </Item>
+            </List>
+        )
+    }
 
 
     render() {
@@ -72,38 +92,30 @@ class Home extends Component {
                     </Carousel>
                     </div>
                     <Tabs tabs={tabs}
-                          initialPage={0}
-                          onChange={(tab, index) => { console.log('onChange', index, tab); }}
+                          initialPage={1}
+                          onChange={(tab, index) => { console.log('onChange', index, tab);}}
                           onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+                          tabBarInactiveTextColor = '#bbb'
+                          tabBarActiveTextColor="#5555FF"
+
                     >
 
 
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff'}}>
+                            {this.renderList()}
 
-                            <List style={{width:'100%'}}>
-                                <Item style={{backgroundColor:'#f6f6f6' }}>
-                                    <InfoCar/>
-                                    <WhiteSpace size="md"/>
-
-                                    <InfoCar/>
-                                    <WhiteSpace size="md"/>
-
-                                    <InfoCar/>
-                                    <WhiteSpace size="md"/>
-
-                                    <InfoCar/>
-                                    <LineCrossText>到底啦</LineCrossText>
-
-                                </Item>
-                            </List>
                         </div>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '150px', backgroundColor: '#fff' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff'}}>
+                            {this.renderList()}
 
-                            Content of second tab
                         </div>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '150px', backgroundColor: '#fff' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff'}}>
+                            {this.renderList()}
 
-                            Content of third tab
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff'}}>
+                            {this.renderList()}
+
                         </div>
                     </Tabs>
 
