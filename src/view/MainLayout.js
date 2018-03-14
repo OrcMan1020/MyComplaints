@@ -9,6 +9,7 @@ import { List } from 'antd-mobile';
 import FetchDataPlaceholder from '../component/FetchDataPlaceholder/'
 import Home from './Home'
 import AddComplaint from './add_complaint/AddComplaint';
+import ComplaintDetail from './complaint_detail/ComplaintDetail';
 
 import '../style/navbar.css'
 
@@ -138,7 +139,7 @@ class MainLayout extends Component {
                             }}
                             data-seed="logId1"
                         >
-                            <Home></Home>
+                            <ComplaintDetail></ComplaintDetail>
                         </TabBar.Item>
 
                     </TabBar>
