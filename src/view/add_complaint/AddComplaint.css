@@ -110,3 +110,27 @@
     border-color: #108ee9;
     background: #108ee9;
 }
+
+.complaint .am-list-item .am-input-label {
+    font-size: 15px;
+}
+.complaint .am-list-item .am-input-control input {
+    font-size: 15px;
+}
+
+.complaint .am-textarea-label {
+    font-size: 15px;
+}
+
+.complaint .am-list-item .am-list-line .am-list-content{
+    font-size: 15px;
+
+}
+
+.complaint .am-textarea-control textarea {
+    font-size: 15px;
+}
+
+.complaint .am-image-picker-list .am-image-picker-item .am-image-picker-item-content{
+    background-size: 100% 100%;
+}

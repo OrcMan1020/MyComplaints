@@ -20,6 +20,7 @@ class AddComplaint extends Component {
         super(prop);
         this.state = {
             files: data,
+            agreed: true
         };
     }
 
@@ -45,7 +46,7 @@ class AddComplaint extends Component {
                     >投诉对象</InputItem>
 
                     <Picker title="投诉问题">
-                        <List.Item arrow="horizontal">投诉问题<span style={{paddingLeft:'24px', color:'#bbb'}}>(必填) 选择投诉问题的核心</span></List.Item>
+                        <List.Item arrow="horizontal">投诉问题<span style={{paddingLeft:'30px', color:'#bbb'}}>(必填) 选择投诉问题的核心</span></List.Item>
                     </Picker>
 
                     <InputItem
@@ -74,7 +75,7 @@ class AddComplaint extends Component {
                     <Item>
                         <div>
                             添加附件
-                            <span style={{paddingLeft:'24px', color:'#bbb'}}>支持jpg,png,gif格式, 最多上传10张</span>
+                            <span style={{paddingLeft:'30px', color:'#bbb'}}>支持jpg,png,gif格式, 最多上传10张</span>
 
                         </div>
 
@@ -90,7 +91,7 @@ class AddComplaint extends Component {
                     <Item>
                         <div>
                             隐私附件
-                            <span style={{paddingLeft:'24px', color:'#bbb'}}>不公开给第三方, 最多上传10张</span>
+                            <span style={{paddingLeft:'30px', color:'#bbb'}}>不公开给第三方, 最多上传10张</span>
 
                         </div>
 
@@ -110,7 +111,12 @@ class AddComplaint extends Component {
 
                 <Flex>
                     <Flex.Item>
-                        <AgreeItem data-seed="logId" onChange={e => console.log('checkbox', e)}>
+                        <AgreeItem data-seed="logId"
+                                   checked={this.state.enableSubmit}
+                                   onChange={e => {this.state.enableSubmit=!this.state.enableSubmit; this.setState({
+                            enableSubmit :  this.state.enableSubmit}
+
+                        )}}>
                             同意微投诉使用协议
                         </AgreeItem>
                     </Flex.Item>
@@ -118,7 +124,8 @@ class AddComplaint extends Component {
 
                 <div>
                     <WingBlank size="lg"/>
-                        <Button className="btn" type="primary">primary 按钮</Button>
+                        <Button className="btn" type="primary"
+                                disabled={!this.state.enableSubmit}>提交</Button>
                 </div>
             </div>
 
