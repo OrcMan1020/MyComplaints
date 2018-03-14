@@ -8,6 +8,7 @@ import {TabBar, Carousel, Icon, SearchBar, Tabs, WhiteSpace, WingBlank} from 'an
 import { List } from 'antd-mobile';
 import FetchDataPlaceholder from '../component/FetchDataPlaceholder/'
 import Home from './Home'
+import AddComplaint from './add_complaint/AddComplaint';
 
 import '../style/navbar.css'
 
@@ -26,7 +27,7 @@ class MainLayout extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedTab: 'home',
+            selectedTab: 'complaint',
             hidden: false,
             fullScreen: false,
         };
@@ -108,7 +109,7 @@ class MainLayout extends Component {
                         }}
                         data-seed="logId1"
                     >
-                        <Home></Home>
+                        <AddComplaint></AddComplaint>
                     </TabBar.Item>
 
 

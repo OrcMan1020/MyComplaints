@@ -1,7 +1,7 @@
-.am-list-item {
+.using-card .am-list-item {
     padding-left: 0;
 }
-.am-list-item .am-list-line {
+.using-card .am-list-item .am-list-line {
     padding-right: 0;
 }
 

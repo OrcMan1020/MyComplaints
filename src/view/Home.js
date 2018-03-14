@@ -34,22 +34,28 @@ class Home extends Component {
 
     renderList(type) {
         return (
-            <List style={{width:'100%'}}>
-                <Item style={{backgroundColor:'#f6f6f6' }}>
-                    <InfoCar/>
-                    <WhiteSpace size="md"/>
+            <div class='using-card'>
+                <List style={{width:'100%'}}>
+                    <Item style={{backgroundColor:'#f6f6f6' }}>
+                        <InfoCar/>
+                    </Item>
+                    <Item style={{backgroundColor:'#f6f6f6' }}>
+                        <InfoCar/>
+                    </Item>
+                    <Item style={{backgroundColor:'#f6f6f6' }}>
+                        <InfoCar/>
+                    </Item>
+                    <Item style={{backgroundColor:'#f6f6f6' }}>
+                        <InfoCar/>
+                    </Item>
+                    <Item style={{backgroundColor:'#f6f6f6' }}>
+                        <InfoCar/>
+                        <LineCrossText>到底啦</LineCrossText>
+                    </Item>
 
-                    <InfoCar/>
-                    <WhiteSpace size="md"/>
 
-                    <InfoCar/>
-                    <WhiteSpace size="md"/>
-
-                    <InfoCar/>
-                    <LineCrossText>到底啦</LineCrossText>
-
-                </Item>
-            </List>
+                </List>
+            </div>
         )
     }
 
