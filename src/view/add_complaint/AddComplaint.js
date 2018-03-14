@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { List, Card, WhiteSpace, WingBlank, InputItem, TextareaItem, Picker, ImagePicker,
-     Checkbox, Flex } from 'antd-mobile';
+     Checkbox, Flex, Button } from 'antd-mobile';
 
 import './AddComplaint.css';
 
@@ -116,7 +116,10 @@ class AddComplaint extends Component {
                     </Flex.Item>
                 </Flex>
 
-
+                <div>
+                    <WingBlank size="lg"/>
+                        <Button className="btn" type="primary">primary 按钮</Button>
+                </div>
             </div>
 
         )
