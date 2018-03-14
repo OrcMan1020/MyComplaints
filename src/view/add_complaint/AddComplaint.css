@@ -134,3 +134,18 @@
 .complaint .am-image-picker-list .am-image-picker-item .am-image-picker-item-content{
     background-size: 100% 100%;
 }
+
+.model-wrap .am-modal-transparent .am-modal-content {
+    padding-top: 0
+}
+.model-wrap .am-modal-transparent {
+    width: 320px;
+}
+
+.model-wrap .am-modal-transparent .am-modal-content .am-modal-body {
+    padding: 0 0 0 0;
+}
+
+.model-wrap img {
+    width: 100%;
+}
