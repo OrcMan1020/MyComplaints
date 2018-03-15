@@ -1,3 +1,6 @@
+.about-us {
+    padding-bottom: 44px;
+}
 .about-us .am-card-body {
     position : initial;
     padding:16px 16px
@@ -19,6 +22,33 @@
 .about-us .about-us-info {
     width:100%;
     height:40px;
-    border: dotted 0.5px #bbbbbb;
+    border: dotted 1px #bbbbbb;
     border-radius: 20px;
+    vertical-align: middle;
+
+}
+
+.about-us .about-us-info-content {
+    height: 100%;
+    padding-left: 4px;
+    padding-right: 4px;
+
+
+    /*background-color: #FF5A5F;*/
+}
+
+.about-us .about-us-info-content img {
+    vertical-align: middle;
+    height: 32px;
+    width: 32px;
+    padding-top: 4px;
+
+}
+.about-us .about-us-info-content span {
+    /*text-align: center;*/
+    vertical-align: middle;
+    font-size: 16px;
+    padding-left: 8px;
+    color: #108ee9;
+    padding-top: 4px;
 }
