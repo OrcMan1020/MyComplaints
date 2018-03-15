@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { Modal, WhiteSpace, Grid, Icon  } from 'antd-mobile';
+import LineCrossText from '../../component/LineCrossText/'
 
 
 class SuccessModel extends Component
@@ -51,7 +52,8 @@ class SuccessModel extends Component
                                 <WhiteSpace size='lg'/>
                                 <WhiteSpace size='lg'/>
                                 <div>
-                                    选择分享到:</div>
+                                    <LineCrossText>选择分享到:</LineCrossText>
+                                    </div>
                                 <WhiteSpace size='lg'/>
 
                                 <Grid data={icons}

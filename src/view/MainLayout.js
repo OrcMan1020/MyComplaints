@@ -7,9 +7,9 @@ import qs from 'query-string';
 import {TabBar, Carousel, Icon, SearchBar, Tabs, WhiteSpace, WingBlank} from 'antd-mobile';
 import { List } from 'antd-mobile';
 import FetchDataPlaceholder from '../component/FetchDataPlaceholder/'
-import Home from './Home'
+import Home from './home/Home'
 import AddComplaint from './add_complaint/AddComplaint';
-import ComplaintDetail from './complaint_detail/ComplaintDetail';
+import Mine from './mine/Mine';
 
 import '../style/navbar.css'
 
@@ -36,7 +36,7 @@ class MainLayout extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedTab: window.selectedTab || 'complaint',
+            selectedTab: window.selectedTab || 'mine',
             hidden: false,
             fullScreen: false,
             navBarTitle : ''
@@ -174,7 +174,7 @@ class MainLayout extends Component {
                             }}
                             data-seed="logId1"
                         >
-                            <Home></Home>
+                            <Mine></Mine>
                         </TabBar.Item>
 
                     </TabBar>

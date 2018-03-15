@@ -5,11 +5,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import qs from 'query-string';
 import {TabBar, Carousel, Icon, SearchBar, Tabs, WhiteSpace, WingBlank, List, NavBar} from 'antd-mobile';
-import LineCrossText from '../component/LineCrossText/'
+import LineCrossText from '../../component/LineCrossText/'
 
-import '../style/home.css'
+import '../../style/home.css'
 import InfoCar from './InfoCard';
-import '../style/list.css'
+import '../../style/list.css'
 
 const tabs = [
     { title: "最热投诉" },

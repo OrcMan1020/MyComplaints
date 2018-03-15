@@ -157,3 +157,7 @@
     background-size:cover;
     height: 140px;
 }
+
+.model-wrap .ui-line-text-wrap .ui-line-text {
+    background-color: #ffffff;
+}
