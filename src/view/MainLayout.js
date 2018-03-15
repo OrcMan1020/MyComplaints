@@ -40,6 +40,23 @@ class MainLayout extends Component {
 
     }
 
+    goBack = () => {
+        // route('/login', true);
+        // this.context.router.history.goBack();
+        // this.context.router.history.push({
+        //   pathname: '/',
+        //   search: '?tab=user',
+        //   state: PageTransition.getState()
+        // })
+    }
+
+    goToTab = (selectedTab) => {
+        this.setState({
+                selectedTab : selectedTab
+        }
+        );
+    }
+
 
     render() {
         return (
@@ -48,6 +65,7 @@ class MainLayout extends Component {
                     mode="dark"
                     icon={<Icon type="left" size="lg"/>}
                     prefixCls='am-navbar-dark'
+                    onLeftClick={(e)=>{this.goBack()}}
                 >
                     微投诉
                 </NavBar>
@@ -110,7 +128,7 @@ class MainLayout extends Component {
                         }}
                         data-seed="logId1"
                     >
-                        <AddComplaint></AddComplaint>
+                        <AddComplaint goToTab={this.goToTab.bind(this)}></AddComplaint>
                     </TabBar.Item>
 
 

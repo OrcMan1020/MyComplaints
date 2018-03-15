@@ -149,3 +149,11 @@
 .model-wrap img {
     width: 100%;
 }
+
+.model-wrap .success-model-head {
+    background-image: url('../../img/model-header.png');
+    background-repeat:no-repeat;
+
+    background-size:cover;
+    height: 140px;
+}

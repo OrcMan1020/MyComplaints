@@ -14,33 +14,56 @@ const CheckboxItem = Checkbox.CheckboxItem;
 const AgreeItem = Checkbox.AgreeItem;
 
 const data = [];
+const secretData = [];
 
 class AddComplaint extends Component {
+
+
+
 
     constructor(prop){
         super(prop);
         this.state = {
             files: data,
-            agreed: true,
+            secretFiles : secretData,
+            enableSubmit: false,
             visible: false
         };
     }
 
-    onChange = (files, type, index) => {
+    onFinish = () => {
+        this.state.visible = false;
+        this.state.files = [];
+        this.state.secretFiles = [];
+        this.state.enableSubmit = false;
+        this.props.goToTab('Home');
+    }
+
+    onChangeFiles = (files, type, index) => {
         console.log(files, type, index);
         this.setState({
             files,
         });
     };
 
+    onChangeSecretFiles = (secretFiles, type, index) => {
+        console.log(secretFiles, type, index);
+        this.setState({
+            secretFiles,
+        });
+    };
+
 
     render() {
-        const { files } = this.state;
+        const { files, secretFiles } = this.state;
 
         return (
 
             <div>
-                <SuccessModel visible={this.state.visible}/>
+                <SuccessModel
+                    visible={this.state.visible}
+                    onFinish={this.onFinish}
+                />
                 <div class='complaint'>
                     <WhiteSpace size="lg"/>
 
@@ -85,7 +108,7 @@ class AddComplaint extends Component {
 
                             <ImagePicker
                                 files={files}
-                                onChange={this.onChange}
+                                onChange={this.onChangeFiles}
                                 onImageClick={(index, fs) => console.log(index, fs)}
                                 selectable={files.length <= 10}
                             />
@@ -100,10 +123,10 @@ class AddComplaint extends Component {
                             </div>
 
                             <ImagePicker
-                                files={files}
-                                onChange={this.onChange}
+                                files={secretFiles}
+                                onChange={this.onChangeSecretFiles}
                                 onImageClick={(index, fs) => console.log(index, fs)}
-                                selectable={files.length <= 10}
+                                selectable={secretFiles.length <= 10}
                             />
 
 
