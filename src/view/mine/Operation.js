@@ -28,7 +28,12 @@ class Operation extends Component {
                     </List.Item>
                     <List.Item thumb="./img/mine-suggestion.jpg"
                                arrow="horizontal"
-                               onClick={() => {}}>
+                               onClick={(e)=>{this.context.router.history.push(
+                                   {
+                                       pathname:"/suggestion",
+                                       search: ''
+                                   }
+                               )}}>
                         反馈意见
                     </List.Item>
                     <List.Item thumb="./img/mine-media.jpg"

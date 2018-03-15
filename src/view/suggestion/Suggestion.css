@@ -1,0 +1,9 @@
+.suggestion {
+    padding-bottom: 44px;
+}
+
+.suggestion .suggestion-title {
+    padding-left: 16px;
+    font-size: 18px;
+    color: #202020;
+}
