@@ -12,7 +12,12 @@ class About extends Component {
                 <List>
                     <List.Item thumb="./img/mine-about.jpg"
                                arrow="horizontal"
-                               onClick={() => {}}>
+                               onClick={(e)=>{this.context.router.history.push(
+                                   {
+                                       pathname:"/about-us",
+                                       search: ''
+                                   }
+                               )}}>
                         关于微投诉
                     </List.Item>
                 </List>

@@ -35,7 +35,7 @@ class OverView extends Component
                                 </Flex>
 
                             </div>
-                            <WhiteSpace/>
+                            <WhiteSpace size="md"/>
 
                             <div>
                                 <Flex>

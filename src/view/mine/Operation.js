@@ -13,7 +13,12 @@ class Operation extends Component {
                     <List.Item thumb="./img/mine-complaint.jpg"
                                extra={<span style={{color:'#ff632a', opacity:0.6, fontSize:'16px'}}>有状态更新</span>}
                                arrow="horizontal"
-                               onClick={() => {}}>
+                               onClick={(e)=>{this.context.router.history.push(
+                                   {
+                                       pathname:"/my-complaint",
+                                       search: ''
+                                   }
+                               )}}>
                         我的投诉
                     </List.Item>
                     <List.Item thumb="./img/mine-level.jpg"
