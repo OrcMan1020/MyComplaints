@@ -23,14 +23,23 @@ const tabs = [
     { title: "已完成" },
 ];
 
+const titles = {
+    'home' : '微投诉',
+    'complaint' : '添加投诉',
+    'mine' : '微投诉'
+};
+
+
+
 class MainLayout extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            selectedTab: 'complaint',
+            selectedTab: window.selectedTab || 'complaint',
             hidden: false,
             fullScreen: false,
+            navBarTitle : ''
         };
     }
 
@@ -51,23 +60,37 @@ class MainLayout extends Component {
     }
 
     goToTab = (selectedTab) => {
+        window.selectedTab = selectedTab;
         this.setState({
                 selectedTab : selectedTab
         }
         );
     }
 
+    renderBackArrow(display) {
+        if (!display) {
+            return null;
+        }
+        else {
+            return (<Icon type="left" size="lg"/>)
+
+        }
+    }
+
+    renderNavBarTitle(title) {
+        return (<div>title</div>)
+    }
 
     render() {
         return (
             <div>
                 <NavBar
                     mode="dark"
-                    icon={<Icon type="left" size="lg"/>}
+                    icon={this.renderBackArrow(false)}
                     prefixCls='am-navbar-dark'
                     onLeftClick={(e)=>{this.goBack()}}
                 >
-                    微投诉
+                    {titles[this.state.selectedTab]}
                 </NavBar>
                 <div class="app page">
                     <TabBar
@@ -93,9 +116,7 @@ class MainLayout extends Component {
                             }
                             selected={this.state.selectedTab === 'home'}
                             onPress={() => {
-                                this.setState({
-                                    selectedTab: 'home',
-                                });
+                                this.goToTab('home')
                             }}
                             data-seed="logId"
                         >
@@ -122,9 +143,7 @@ class MainLayout extends Component {
                         key="complaint"
                         selected={this.state.selectedTab === 'complaint'}
                         onPress={() => {
-                            this.setState({
-                                selectedTab: 'complaint',
-                            });
+                            this.goToTab('complaint')
                         }}
                         data-seed="logId1"
                     >
@@ -151,13 +170,11 @@ class MainLayout extends Component {
                             key="mine"
                             selected={this.state.selectedTab === 'mine'}
                             onPress={() => {
-                                this.setState({
-                                    selectedTab: 'mine',
-                                });
+                                this.goToTab('mine')
                             }}
                             data-seed="logId1"
                         >
-                            <ComplaintDetail></ComplaintDetail>
+                            <Home></Home>
                         </TabBar.Item>
 
                     </TabBar>

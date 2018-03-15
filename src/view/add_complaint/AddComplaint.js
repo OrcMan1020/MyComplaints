@@ -36,7 +36,7 @@ class AddComplaint extends Component {
         this.state.files = [];
         this.state.secretFiles = [];
         this.state.enableSubmit = false;
-        this.props.goToTab('Home');
+        this.props.goToTab('home');
     }
 
     onChangeFiles = (files, type, index) => {

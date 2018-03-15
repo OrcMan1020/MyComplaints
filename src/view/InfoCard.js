@@ -10,13 +10,18 @@ import { Card, WhiteSpace } from 'antd-mobile';
 
 
 class InfoCard extends Component {
-
-
-
     render() {
         return (
 
-          <div>
+          <div onClick={()=>{
+
+              this.context.router.history.push(
+                  {
+                      pathname:"/complaint-detail",
+                      search: ''
+                  }
+              )
+          }}>
               <Card full>
                   <Card.Header
                       title={<div>

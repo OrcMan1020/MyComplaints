@@ -29,6 +29,7 @@ class Home extends Component {
             data: ['1', '2', '3'],
             imgHeight: 176,
             slideIndex: 0,
+            initialPage: window.initialPage || 1
         };
     }
 
@@ -104,11 +105,12 @@ class Home extends Component {
 
                 <div className="mytabs">
                     <Tabs tabs={tabs}
-                          initialPage={1}
+                          initialPage={this.state.initialPage}
                           onChange={(tab, index) => { console.log('onChange', index, tab);}}
-                          onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+                          onTabClick={(tab, index) => { window.initialPage = index; console.log('onTabClick', index, tab); }}
                           tabBarInactiveTextColor = '#bbb'
                           tabBarActiveTextColor="#5555FF"
+                          swipeable={false}
 
                     >
 

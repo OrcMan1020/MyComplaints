@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Card, WhiteSpace } from 'antd-mobile';
+import { Card, WhiteSpace, Flex } from 'antd-mobile';
 
 class OverView extends Component
 {
@@ -25,15 +25,26 @@ class OverView extends Component
                 />
                 <Card.Body style={{wordWrap:'break-word'}}>
                     <div style={{borderLeft:'solid 5px', borderLeftColor:'#108ee9'}}>
-                        <div style={{paddingLeft:'8px'}}>
+                        <div style={{paddingLeft:'16px'}}>
                             <div>
-                                <span style={{color:'#108ee9'}}>[投诉对象]:</span> 康佳电视
+                                <Flex>
+                                    <span style={{flex:1}}>
+                                        <span style={{color:'#108ee9'}}>[投诉对象]:</span>
+                                    </span>
+                                    <span style={{flex:3}}>康佳电视</span>
+                                </Flex>
 
                             </div>
                             <WhiteSpace/>
 
                             <div>
-                                <div style={{color:'#108ee9', display:'flex 4'}}>[投诉要求]:</div> <div>要求赔偿一台同型号新电视, 并且对损坏的地板进行修理</div>
+                                <Flex>
+                                    <span style={{flex:1, alignSelf:'flex-start'}}>
+                                        <span style={{color:'#108ee9'}}>[投诉要求]:</span>
+                                    </span>
+                                    <span style={{flex:3}}>要求赔偿一台同型号新电视, 并且对损坏的地板进行修理</span>
+
+                                </Flex>
 
                             </div>
                         </div>
