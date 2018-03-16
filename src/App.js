@@ -8,6 +8,7 @@ import ComplaintDetail from './view/complaint_detail/ComplaintDetail';
 import MyComplaint from './view/my_complaint/MyComplaint';
 import AboutUs from './view/about_us/AboutUs';
 import Suggestion from './view/suggestion/Suggestion';
+import Evaluate from './view/evaluate/Evaluate';
 
 import './App.css';
 
@@ -26,6 +27,7 @@ class App extends Component {
                 <Route path="/my-complaint" component={MyComplaint} />
                 <Route path="/about-us" component={AboutUs} />
                 <Route path="/suggestion" component={Suggestion} />
+                <Route path="/evaluate" component={Evaluate} />
               <Route component={NotFound} />
             </Switch>
           </div>
