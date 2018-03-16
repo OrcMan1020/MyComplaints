@@ -37,24 +37,16 @@ class Home extends Component {
         return (
             <div class='using-card'>
                 <List style={{width:'100%'}}>
-                    <Item style={{backgroundColor:'#f6f6f6' }}>
-                        <InfoCar/>
-                    </Item>
-                    <Item style={{backgroundColor:'#f6f6f6' }}>
-                        <InfoCar/>
-                    </Item>
-                    <Item style={{backgroundColor:'#f6f6f6' }}>
-                        <InfoCar/>
-                    </Item>
-                    <Item style={{backgroundColor:'#f6f6f6' }}>
-                        <InfoCar/>
-                    </Item>
-                    <Item style={{backgroundColor:'#f6f6f6' }}>
-                        <InfoCar/>
-                        <LineCrossText>到底啦</LineCrossText>
-                    </Item>
-
-
+                    {
+                        [0, 1, 2, 3, 4, 5].map((element, index)=>{
+                            return (
+                                <Item style={{backgroundColor:'#f6f6f6' }}>
+                                    <InfoCar/>
+                                    {index==5?<LineCrossText>到底啦</LineCrossText>:null}
+                                </Item>
+                            )
+                        })
+                    }
                 </List>
             </div>
         )

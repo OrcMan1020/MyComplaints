@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import {NavLink} from 'react-router-dom'
 import {Result, Icon, NavBar} from 'antd-mobile';
+import MyNavBar from '../component/MyNavBar/MyNavBar';
 
 class Agreement extends Component {
     goBack = () => {
@@ -17,16 +18,15 @@ class Agreement extends Component {
     }
     render() {
         return (
-            <div className="not-found page">
-                <NavBar
-                    mode="dark"
-                    icon={<Icon type="left" />}
-                    onLeftClick={this.goBack}
-                >页面未找到</NavBar>
+            <div style={{height:'100%', backgroundColor:'#FFF'}}>
+                <MyNavBar
+                    title={'页面未找到'}
+                />
+
                 <Result
                     img={<Icon type="cross-circle-o" className="not-found-img" style={{ fill: '#FF5A5F' }} />}
                     title="页面未找到"
-                    message={<div>点击返回<NavLink to="/">首页</NavLink>找贷款</div>}
+                    message={<div>点击返回<NavLink to="/">首页</NavLink>微投诉</div>}
                 />
             </div>
         );

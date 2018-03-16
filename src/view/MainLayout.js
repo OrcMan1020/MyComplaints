@@ -52,7 +52,7 @@ class MainLayout extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedTab: window.selectedTab || 'mine',
+            selectedTab: window.selectedTab || 'home',
             hidden: false,
             fullScreen: false,
             navBarTitle : ''
