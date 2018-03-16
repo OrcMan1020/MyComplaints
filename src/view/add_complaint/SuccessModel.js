@@ -38,9 +38,8 @@ class SuccessModel extends Component
                                         <Icon type="cross" size="lg"
                                         onClick={(e)=>{
                                             this.props.visible = false;
-
                                             this.props.onFinish();
-                                        }}></Icon>
+                                        }}/>
                                     </div>
 
                                 </div>

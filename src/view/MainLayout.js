@@ -12,6 +12,7 @@ import AddComplaint from './add_complaint/AddComplaint';
 import Mine from './mine/Mine';
 
 import '../style/navbar.css'
+import MyNavBar from '../component/MyNavBar/MyNavBar';
 
 import { NavBar} from 'antd-mobile';
 
@@ -28,7 +29,22 @@ const titles = {
     'complaint' : '添加投诉',
     'mine' : '微投诉'
 };
+const iconMap = {
+    'home' : [
+        'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat',
+        'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat'
+    ],
+    'complaint' : [
+        'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat',
+        'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat'
+    ],
+    'mine' : [
+        'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat',
+        'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat'
+    ]
 
+
+}
 
 
 class MainLayout extends Component {
@@ -49,49 +65,34 @@ class MainLayout extends Component {
 
     }
 
-    goBack = () => {
-        // route('/login', true);
-        // this.context.router.history.goBack();
-        // this.context.router.history.push({
-        //   pathname: '/',
-        //   search: '?tab=user',
-        //   state: PageTransition.getState()
-        // })
-    }
-
     goToTab = (selectedTab) => {
         window.selectedTab = selectedTab;
         this.setState({
                 selectedTab : selectedTab
-        }
+            }
         );
     }
 
-    renderBackArrow(display) {
-        if (!display) {
-            return null;
-        }
-        else {
-            return (<Icon type="left" size="lg"/>)
 
-        }
-    }
 
-    renderNavBarTitle(title) {
-        return (<div>title</div>)
+    renderTabBarIcon(name, selected) {
+        return (
+            <div style={{
+                width: '22px',
+                height: '22px',
+                background: iconMap[name][selected?1:0] }}
+            />
+        )
     }
 
     render() {
         return (
             <div>
-                <NavBar
-                    mode="dark"
-                    icon={this.renderBackArrow(false)}
-                    prefixCls='am-navbar-dark'
-                    onLeftClick={(e)=>{this.goBack()}}
-                >
-                    {titles[this.state.selectedTab]}
-                </NavBar>
+                <MyNavBar
+                    hiddenBack={true}
+                    title={titles[this.state.selectedTab]}
+                />
+
                 <div class="app page">
                     <TabBar
                         unselectedTintColor="#949494"
@@ -99,92 +100,51 @@ class MainLayout extends Component {
                         barTintColor="white"
                         hidden={this.state.hidden}
                     >
+
                         <TabBar.Item
                             title="首页"
                             key="Home"
-                            icon={<div style={{
-                                width: '22px',
-                                height: '22px',
-                                background: 'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat' }}
-                            />
-                            }
-                            selectedIcon={<div style={{
-                                width: '22px',
-                                height: '22px',
-                                background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat' }}
-                            />
-                            }
+                            icon={this.renderTabBarIcon('home', false)}
+                            selectedIcon={this.renderTabBarIcon('home', true)}
                             selected={this.state.selectedTab === 'home'}
                             onPress={() => {
                                 this.goToTab('home')
                             }}
-                            data-seed="logId"
                         >
                             <Home></Home>
                         </TabBar.Item>
 
 
                         <TabBar.Item
-                        icon={
-                            <div style={{
-                                width: '22px',
-                                height: '22px',
-                                background: 'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat' }}
-                            />
-                        }
-                        selectedIcon={
-                            <div style={{
-                                width: '22px',
-                                height: '22px',
-                                background: 'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat' }}
-                            />
-                        }
-                        title="投诉"
-                        key="complaint"
-                        selected={this.state.selectedTab === 'complaint'}
-                        onPress={() => {
-                            this.goToTab('complaint')
-                        }}
-                        data-seed="logId1"
-                    >
-                        <AddComplaint goToTab={this.goToTab.bind(this)}></AddComplaint>
-                    </TabBar.Item>
+                            icon={this.renderTabBarIcon('complaint', false)}
+                            selectedIcon={this.renderTabBarIcon('complaint', true)}
+
+                            title="投诉"
+                            key="complaint"
+                            selected={this.state.selectedTab === 'complaint'}
+                            onPress={() => {
+                                this.goToTab('complaint')
+                            }}
+                        >
+                            <AddComplaint goToTab={this.goToTab.bind(this)}></AddComplaint>
+                        </TabBar.Item>
 
 
                         <TabBar.Item
-                            icon={
-                                <div style={{
-                                    width: '22px',
-                                    height: '22px',
-                                    background: 'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat' }}
-                                />
-                            }
-                            selectedIcon={
-                                <div style={{
-                                    width: '22px',
-                                    height: '22px',
-                                    background: 'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat' }}
-                                />
-                            }
+                            icon={this.renderTabBarIcon('mine', false)}
+                            selectedIcon={this.renderTabBarIcon('mine', true)}
                             title="我的"
                             key="mine"
                             selected={this.state.selectedTab === 'mine'}
                             onPress={() => {
                                 this.goToTab('mine')
                             }}
-                            data-seed="logId1"
                         >
                             <Mine></Mine>
                         </TabBar.Item>
 
                     </TabBar>
                 </div>
-
-
-
-
-
-
             </div>
         )
     }

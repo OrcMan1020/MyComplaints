@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {NavBar, Icon, WhiteSpace, TextareaItem, InputItem, WingBlank, Button} from 'antd-mobile';
-
+import MyNavBar from "../../component/MyNavBar/MyNavBar";
 import './Suggestion.css';
 
 class Suggestion extends Component {
@@ -11,14 +11,9 @@ class Suggestion extends Component {
     render() {
         return (
             <div class='suggestion'>
-                <NavBar
-                    mode="dark"
-                    icon={<Icon type="left" size="lg"/>}
-                    prefixCls='am-navbar-dark'
-                    onLeftClick={(e)=>{this.goBack()}}
-                >
-                    意见反馈
-                </NavBar>
+                <MyNavBar
+                title={'意见反馈'}/>
+
                 <WhiteSpace size={'lg'}/>
                 <div className={'suggestion-title'}>
                     用户体验微信号: 123456

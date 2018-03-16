@@ -39,19 +39,27 @@ class AddComplaint extends Component {
         this.props.goToTab('home');
     }
 
-    onChangeFiles = (files, type, index) => {
-        console.log(files, type, index);
-        this.setState({
-            files,
-        });
-    };
+    onChangeFiles = (filesName)=>{
+        return (files, type, index) => {
+            this.setState({
+                [filesName] : files
+            })
+        }
+    }
 
-    onChangeSecretFiles = (secretFiles, type, index) => {
-        console.log(secretFiles, type, index);
-        this.setState({
-            secretFiles,
-        });
-    };
+    // onChangeFiles = (files, type, index) => {
+    //     console.log(files, type, index);
+    //     this.setState({
+    //         files,
+    //     });
+    // };
+    //
+    // onChangeSecretFiles = (secretFiles, type, index) => {
+    //     console.log(secretFiles, type, index);
+    //     this.setState({
+    //         secretFiles,
+    //     });
+    // };
 
 
     render() {
@@ -73,7 +81,9 @@ class AddComplaint extends Component {
                         >投诉对象</InputItem>
 
                         <Picker title="投诉问题">
-                            <List.Item arrow="horizontal">投诉问题<span style={{paddingLeft:'30px', color:'#bbb'}}>(必填) 选择投诉问题的核心</span></List.Item>
+                            <List.Item arrow="horizontal">
+                                投诉问题<span style={{paddingLeft:'30px', color:'#bbb'}}>(必填) 选择投诉问题的核心</span>
+                            </List.Item>
                         </Picker>
 
                         <InputItem
@@ -108,7 +118,7 @@ class AddComplaint extends Component {
 
                             <ImagePicker
                                 files={files}
-                                onChange={this.onChangeFiles}
+                                onChange={this.onChangeFiles('files')}
                                 onImageClick={(index, fs) => console.log(index, fs)}
                                 selectable={files.length <= 10}
                             />
@@ -124,7 +134,7 @@ class AddComplaint extends Component {
 
                             <ImagePicker
                                 files={secretFiles}
-                                onChange={this.onChangeSecretFiles}
+                                onChange={this.onChangeFiles('secretFiles')}
                                 onImageClick={(index, fs) => console.log(index, fs)}
                                 selectable={secretFiles.length <= 10}
                             />
