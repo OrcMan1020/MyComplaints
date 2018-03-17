@@ -34,7 +34,7 @@ class ComplaintDetail extends Component {
                 <div class='footer'>
                     <WingBlank size="lg"/>
                     <Button
-                        icon={<img src="https://gw.alipayobjects.com/zos/rmsportal/jBfVSpDwPbitsABtDDlB.svg" alt=""/>}
+                        icon={<img src="./img/icon/share.png" alt=""/>}
                         className="btn"
                         type="primary"
                     ><span style={{fontSize:'16px'}}> 一键转发, 提升曝光率, 维权更容易</span></Button>

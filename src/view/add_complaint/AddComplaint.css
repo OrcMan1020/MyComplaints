@@ -151,13 +151,38 @@
 }
 
 .model-wrap .success-model-head {
-    background-image: url('../../img/model-header.png');
+    background-image: url('../../img/sky.png');
     background-repeat:no-repeat;
 
     background-size:cover;
     height: 140px;
+    background-color: #4e7ef9;
 }
 
 .model-wrap .ui-line-text-wrap .ui-line-text {
     background-color: #ffffff;
+}
+
+.model-wrap .success-model-head .right-background {
+    text-align: center; /*让div内部文字居中*/
+    background-color: #fff;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    margin: auto;
+    position: absolute;
+    top: 25px;
+    left: 0;
+    right: 0;
+}
+
+.model-wrap .success-model-head .right {
+    background-image: url('../../img/right.png');
+    background-repeat:no-repeat;
+
+    background-size:cover;
+    height: 60px;
+    width: 60px;
+    margin: 15px;
+    margin-left: 10px;
 }

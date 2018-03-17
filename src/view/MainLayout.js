@@ -31,16 +31,16 @@ const titles = {
 };
 const iconMap = {
     'home' : [
-        'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat',
-        'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat'
+        'url(./img/icon/home-tab-un.png) center center /  21px 21px no-repeat ',
+        'url(./img/icon/home-tab.png) center center /  21px 21px no-repeat'
     ],
     'complaint' : [
-        'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat',
-        'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat'
+        'url(./img/icon/complaint-tab-un.png) center center /  21px 21px no-repeat',
+        'url(./img/icon/complaint-tab.png) center center /  21px 21px no-repeat'
     ],
     'mine' : [
-        'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat',
-        'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat'
+        'url(./img/icon/mine-tab-un.png) center center /  21px 21px no-repeat',
+        'url(./img/icon/mine-tab.png) center center /  21px 21px no-repeat'
     ]
 
 

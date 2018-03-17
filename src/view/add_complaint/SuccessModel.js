@@ -18,10 +18,10 @@ class SuccessModel extends Component
     render() {
 
         const icons = [
-            {icon : './img/wechat.png'},
-            {icon : './img/weibo.png'},
-            {icon : './img/unknown.png'},
-            {icon : './img/qq.png'},
+            {icon : './img/icon/wechat.png'},
+            {icon : './img/icon/weibo.png'},
+            {icon : './img/icon/friend.png'},
+            {icon : './img/icon/qq.png'},
 
         ];
 
@@ -40,6 +40,9 @@ class SuccessModel extends Component
                                             this.props.visible = false;
                                             this.props.onFinish();
                                         }}/>
+                                    </div>
+                                    <div class="right-background">
+                                        <div class="right"></div>
                                     </div>
 
                                 </div>
