@@ -38,6 +38,7 @@ class Home extends Component {
             <div class='using-card'>
                 <List style={{width:'100%'}}>
                     {
+
                         [0, 1, 2, 3, 4, 5].map((element, index)=>{
                             return (
                                 <Item style={{backgroundColor:'#f6f6f6' }}>
@@ -101,7 +102,7 @@ class Home extends Component {
                           onChange={(tab, index) => { console.log('onChange', index, tab);}}
                           onTabClick={(tab, index) => { window.initialPage = index; console.log('onTabClick', index, tab); }}
                           tabBarInactiveTextColor = '#bbb'
-                          tabBarActiveTextColor="#5555FF"
+                          tabBarActiveTextColor="#6c72ff"
                           swipeable={false}
 
                     >

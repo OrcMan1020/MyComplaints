@@ -5,12 +5,12 @@ import Description from './Description';
 import Process from './Process';
 import '../../style/navbar.css'
 
+
 class ComplaintDetail extends Component {
 
     goBack = () => {
         this.context.router.history.goBack();
     };
-
 
 
     render() {
@@ -37,6 +37,7 @@ class ComplaintDetail extends Component {
                         icon={<img src="./img/icon/share.png" alt=""/>}
                         className="btn"
                         type="primary"
+                        onClick={this.shareComplaint}
                     ><span style={{fontSize:'16px'}}> 一键转发, 提升曝光率, 维权更容易</span></Button>
 
                 </div>

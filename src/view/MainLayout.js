@@ -96,7 +96,7 @@ class MainLayout extends Component {
                 <div class="app page">
                     <TabBar
                         unselectedTintColor="#949494"
-                        tintColor="#33A3F4"
+                        tintColor="#6c72ff"
                         barTintColor="white"
                         hidden={this.state.hidden}
                     >

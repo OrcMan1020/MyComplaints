@@ -8,6 +8,9 @@ import SuccessModel from './SuccessModel';
 
 import './AddComplaint.css';
 
+import fetch from 'unfetch';
+
+
 const Item = List.Item;
 const Brief = Item.Brief;
 const CheckboxItem = Checkbox.CheckboxItem;
@@ -17,8 +20,6 @@ const data = [];
 const secretData = [];
 
 class AddComplaint extends Component {
-
-
 
 
     constructor(prop){
@@ -49,19 +50,38 @@ class AddComplaint extends Component {
         }
     }
 
-    // onChangeFiles = (files, type, index) => {
-    //     console.log(files, type, index);
-    //     this.setState({
-    //         files,
-    //     });
-    // };
-    //
-    // onChangeSecretFiles = (secretFiles, type, index) => {
-    //     console.log(secretFiles, type, index);
-    //     this.setState({
-    //         secretFiles,
-    //     });
-    // };
+    uploadFiles() {
+        console.log(this.state.files);
+
+        let promises = [];
+
+        for(let key in this.state.files){
+
+            let formData = new FormData();
+            formData.append("file", this.state.files[key].file);
+            promises.push(
+                fetch("http://localhost:8082" + "/upload" , {
+                    method: 'POST',
+                    headers: {
+                    },
+                    body: formData
+                })
+
+            );
+        }
+
+        Promise
+            .all(promises)
+            .then((responses)=>{
+                this.setState({
+                    visible : true
+                })
+            })
+            .catch((err)=>{
+                alert("upload failed!")
+            })
+    }
+
 
 
     render() {
@@ -167,9 +187,8 @@ class AddComplaint extends Component {
                         <Button className="btn" type="primary"
                                 disabled={!this.state.enableSubmit}
                                 onClick={e=>{
-                                    this.setState({
-                                        visible : true
-                                    })}}
+                                    this.uploadFiles();
+                                    }}
                                 >提交</Button>
                     </div>
                 </div>
