@@ -151,7 +151,8 @@ class AddComplaint extends Component {
                     <Flex>
                         <Flex.Item>
                             <AgreeItem data-seed="logId"
-                                       checked={this.setState({
+                                       checked={this.state.enableSubmit}
+									   onChange={e=>this.setState({
                                                enableSubmit : !this.state.enableSubmit
                                            }
 

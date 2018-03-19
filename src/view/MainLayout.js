@@ -126,7 +126,7 @@ class MainLayout extends Component {
                                 this.goToTab('complaint')
                             }}
                         >
-                            <AddComplaint goToTab={this.goToTab.bind(this)}></AddComplaint>
+							<AddComplaint goToTab={this.goToTab.bind(this)}></AddComplaint>
                         </TabBar.Item>
 
 
