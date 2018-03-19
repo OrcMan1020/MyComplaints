@@ -10,7 +10,7 @@ class About extends Component {
         return (
             <div>
                 <List>
-                    <List.Item thumb="./img/mine-about.jpg"
+                    <List.Item thumb="./img/icon/info.png"
                                arrow="horizontal"
                                onClick={(e)=>{this.context.router.history.push(
                                    {

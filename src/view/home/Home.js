@@ -7,7 +7,7 @@ import qs from 'query-string';
 import {TabBar, Carousel, Icon, SearchBar, Tabs, WhiteSpace, WingBlank, List, NavBar} from 'antd-mobile';
 import LineCrossText from '../../component/LineCrossText/'
 
-import '../../style/home.css'
+import './Home.css'
 import InfoCar from './InfoCard';
 import '../../style/list.css'
 
@@ -42,7 +42,7 @@ class Home extends Component {
                             return (
                                 <Item style={{backgroundColor:'#f6f6f6' }}>
                                     <InfoCar/>
-                                    {index==5?<LineCrossText>到底啦</LineCrossText>:null}
+                                    {index===5?<LineCrossText>到底啦</LineCrossText>:null}
                                 </Item>
                             )
                         })

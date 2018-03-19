@@ -45,3 +45,15 @@
 .mytabs .am-tabs-tab-bar-wrap{
     position: relative !important;
 }
+
+.info-card .card-head-thumb {
+    width: 48px;
+    height:48px;
+    border-radius:50%
+}
+
+.info-card .card-head-extra {
+    width: 64px;
+    height:64px;
+    border-radius:50%
+}

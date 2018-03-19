@@ -32,10 +32,12 @@ class AddComplaint extends Component {
     }
 
     onFinish = () => {
-        this.state.visible = false;
-        this.state.files = [];
-        this.state.secretFiles = [];
-        this.state.enableSubmit = false;
+        this.setState({
+            visible: false,
+            files : [],
+            secretFiles : [],
+            enableSubmit : false
+        });
         this.props.goToTab('home');
     }
 
@@ -149,10 +151,11 @@ class AddComplaint extends Component {
                     <Flex>
                         <Flex.Item>
                             <AgreeItem data-seed="logId"
-                                       checked={this.state.enableSubmit}
-                                       onChange={e => {this.state.enableSubmit=!this.state.enableSubmit; this.setState(
+                                       checked={this.setState({
+                                               enableSubmit : !this.state.enableSubmit
+                                           }
 
-                                       )}}>
+                                       )}>
                                 同意微投诉使用协议
                             </AgreeItem>
                         </Flex.Item>
@@ -163,8 +166,9 @@ class AddComplaint extends Component {
                         <Button className="btn" type="primary"
                                 disabled={!this.state.enableSubmit}
                                 onClick={e=>{
-                                    this.state.visible = true;
-                                    this.setState()}}
+                                    this.setState({
+                                        visible : true
+                                    })}}
                                 >提交</Button>
                     </div>
                 </div>

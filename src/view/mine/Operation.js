@@ -10,7 +10,7 @@ class Operation extends Component {
         return (
             <div>
                 <List>
-                    <List.Item thumb="./img/mine-complaint.jpg"
+                    <List.Item thumb="./img/icon/Inkpen.png"
                                extra={<span style={{color:'#ff632a', opacity:0.6, fontSize:'16px'}}>有状态更新</span>}
                                arrow="horizontal"
                                onClick={(e)=>{this.context.router.history.push(
@@ -21,12 +21,12 @@ class Operation extends Component {
                                )}}>
                         我的投诉
                     </List.Item>
-                    <List.Item thumb="./img/mine-level.jpg"
+                    <List.Item thumb="./img/icon/level.png"
                                arrow="horizontal"
                                onClick={() => {}}>
                         信用等级说明
                     </List.Item>
-                    <List.Item thumb="./img/mine-suggestion.jpg"
+                    <List.Item thumb="./img/icon/mail.png"
                                arrow="horizontal"
                                onClick={(e)=>{this.context.router.history.push(
                                    {
@@ -36,12 +36,12 @@ class Operation extends Component {
                                )}}>
                         反馈意见
                     </List.Item>
-                    <List.Item thumb="./img/mine-media.jpg"
+                    <List.Item thumb="./img/icon/Portfolio.png"
                                arrow="horizontal"
                                onClick={() => {}}>
                         媒体合作
                     </List.Item>
-                    <List.Item thumb="./img/mine-questions.jpg"
+                    <List.Item thumb="./img/icon/Notepad.png"
                                arrow="horizontal"
                                onClick={() => {}}>
                         常见问题
