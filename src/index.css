@@ -6,7 +6,7 @@ html, body{
   position: relative;
   height: 100%;
   width: 100%;
-  overflow: auto;
+  /*overflow: auto;*/
   user-select: none;
 }
 body {
@@ -48,5 +48,9 @@ textarea::-webkit-input-placeholder{
   max-width: 540px;
   height: 100%;
   margin: 0 auto;
+}
+
+::-webkit-scrollbar{
+  display:none;
 }
 

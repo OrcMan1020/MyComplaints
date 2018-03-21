@@ -16,16 +16,20 @@
     position:absolute;
 }
 
-.am-search {
+.home-constainer .am-search {
     background-color: transparent;
     padding-right: 16px;
     padding-left: 16px;
 }
-.am-search-input {
+.home-constainer .am-search-input {
     width: 80%;
     background-color:rgba(1,1,1,0.1);
     border-radius: 16px;
     height:28px;
+}
+
+.home-constainer .am-search-input .am-search-clear-show {
+    display: none;
 }
 
 .am-search-cancel {

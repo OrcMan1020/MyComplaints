@@ -1,102 +1,146 @@
-/**
- * Created by saix on 2018/3/12.
- */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import qs from 'query-string';
-import {TabBar, Carousel, Icon} from 'antd-mobile';
-import { List } from 'antd-mobile';
-import FetchDataPlaceholder from '../component/FetchDataPlaceholder/'
-import { Tabs, WhiteSpace, WingBlank } from 'antd-mobile';
-import {Timeline, TimelineEvent} from 'react-event-timeline'
+/* eslint no-dupe-keys: 0 */
+const { ListView } = window["antd-mobile"];
 
-const tabs = [
-    { title: 'First Tab' },
-    { title: 'Second Tab' },
-    { title: 'Third Tab' },
+const data = [
+    {
+        img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
+        title: 'Meet hotel',
+        des: '不是所有的兼职汪都需要风吹日晒',
+    },
+    {
+        img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
+        title: 'McDonald\'s invites you',
+        des: '不是所有的兼职汪都需要风吹日晒',
+    },
+    {
+        img: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
+        title: 'Eat the week',
+        des: '不是所有的兼职汪都需要风吹日晒',
+    },
 ];
+const NUM_ROWS = 20;
+let pageIndex = 0;
 
-const LOAN_LIST_LOADING_HEIGHT = {
-    height: 200
+function genData(pIndex = 0) {
+    const dataBlob = {};
+    for (let i = 0; i < NUM_ROWS; i++) {
+        const ii = (pIndex * NUM_ROWS) + i;
+        dataBlob[`${ii}`] = `row - ${ii}`;
+    }
+    return dataBlob;
 }
-const BANNER_LIST_LOADING_HEIGHT = {
-    height: 100
-}
-const Item = List.Item;
-const Brief = Item.Brief;
 
-class MainLayout extends Component {
-
+class Demo extends React.Component {
     constructor(props) {
         super(props);
+        const dataSource = new ListView.DataSource({
+            rowHasChanged: (row1, row2) => row1 !== row2,
+        });
+
         this.state = {
-            selectedTab: 'redTab',
-            hidden: false,
-            fullScreen: false,
+            dataSource,
+            isLoading: true,
         };
     }
 
-    renderContent(pageText) {
-        return (
-            <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
-                <div style={{ paddingTop: 60 }}>Clicked “{pageText}” tab， show “{pageText}” information</div>
-                <a style={{ display: 'block', marginTop: 40, marginBottom: 20, color: '#108ee9' }}
-                   onClick={(e) => {
-                       e.preventDefault();
-                       this.setState({
-                           hidden: !this.state.hidden,
-                       });
-                   }}
-                >
-                    Click to show/hide tab-bar
-                </a>
-                <a style={{ display: 'block', marginBottom: 600, color: '#108ee9' }}
-                   onClick={(e) => {
-                       e.preventDefault();
-                       this.setState({
-                           fullScreen: !this.state.fullScreen,
-                       });
-                   }}
-                >
-                    Click to switch fullscreen
-                </a>
-            </div>
-        );
+    componentDidMount() {
+        // you can scroll to the specified position
+        // setTimeout(() => this.lv.scrollTo(0, 120), 800);
+
+        // simulate initial Ajax
+        setTimeout(() => {
+            this.rData = genData();
+            this.setState({
+                dataSource: this.state.dataSource.cloneWithRows(this.rData),
+                isLoading: false,
+            });
+        }, 600);
+    }
+
+    // If you use redux, the data maybe at props, you need use `componentWillReceiveProps`
+    // componentWillReceiveProps(nextProps) {
+    //   if (nextProps.dataSource !== this.props.dataSource) {
+    //     this.setState({
+    //       dataSource: this.state.dataSource.cloneWithRows(nextProps.dataSource),
+    //     });
+    //   }
+    // }
+
+    onEndReached = (event) => {
+        // load new data
+        // hasMore: from backend data, indicates whether it is the last page, here is false
+        if (this.state.isLoading && !this.state.hasMore) {
+            return;
+        }
+        console.log('reach end', event);
+        this.setState({ isLoading: true });
+        setTimeout(() => {
+            this.rData = { ...this.rData, ...genData(++pageIndex) };
+            this.setState({
+                dataSource: this.state.dataSource.cloneWithRows(this.rData),
+                isLoading: false,
+            });
+        }, 1000);
     }
 
     render() {
-        const imageUrl = "img/home.svg";
-
+        const separator = (sectionID, rowID) => (
+            <div
+                key={`${sectionID}-${rowID}`}
+                style={{
+                    backgroundColor: '#F5F5F9',
+                    height: 8,
+                    borderTop: '1px solid #ECECED',
+                    borderBottom: '1px solid #ECECED',
+                }}
+            />
+        );
+        let index = data.length - 1;
+        const row = (rowData, sectionID, rowID) => {
+            if (index < 0) {
+                index = data.length - 1;
+            }
+            const obj = data[index--];
+            return (
+                <div key={rowID} style={{ padding: '0 15px' }}>
+                    <div
+                        style={{
+                            lineHeight: '50px',
+                            color: '#888',
+                            fontSize: 18,
+                            borderBottom: '1px solid #F6F6F6',
+                        }}
+                    >{obj.title}</div>
+                    <div style={{ display: '-webkit-box', display: 'flex', padding: '15px 0' }}>
+                        <img style={{ height: '64px', marginRight: '15px' }} src={obj.img} alt="" />
+                        <div style={{ lineHeight: 1 }}>
+                            <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.des}</div>
+                            <div><span style={{ fontSize: '30px', color: '#FF6E27' }}>{rowID}</span>¥</div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
         return (
-            <div style={this.state.fullScreen ? { position: 'fixed', height: '100%', width: '100%', top: 0 } : { height: 400 }}>
-                <WingBlank style={{ padding: '18px' }}>
-                    <WhiteSpace/>
-                    <Timeline>
-                        <TimelineEvent
-                            icon={<i className="material-icons md-18">textsms</i>
-                            }
-
-                        >
-                            <div style={{minHeight:'100px'}}>I</div>
-                        </TimelineEvent>
-                        <TimelineEvent
-                            title="You sent an email to John Doe"
-                            createdAt="2016-09-11 09:06 AM"
-                            icon={<img style={{borderRadius:'50%',width:'34px',height:'34px'}} src="http://avatar.csdn.net/F/B/1/3_wangkai_123456.jpg"/>}
-                            bubbleStyle={{borderColor:'#f5f5f9'}}
-                        >
-                            <b>Like we talked, you said that you would share the shipment details? This is an urgent order and so I
-                                am losing patience. Can you expedite the process and pls do share the details asap. Consider this a
-                                gentle reminder if you are on track already!</b>
-                        </TimelineEvent>
-                    </Timeline>
-                </WingBlank>
-
-            </div>
+            <ListView
+                ref={el => this.lv = el}
+                dataSource={this.state.dataSource}
+                renderHeader={() => <span>header</span>}
+                renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
+                    {this.state.isLoading ? 'Loading...' : 'Loaded'}
+                </div>)}
+                renderRow={row}
+                renderSeparator={separator}
+                className="am-list"
+                pageSize={4}
+                useBodyScroll
+                onScroll={() => { console.log('scroll'); }}
+                scrollRenderAheadDistance={500}
+                onEndReached={this.onEndReached}
+                onEndReachedThreshold={10}
+            />
         );
     }
 }
 
-export default MainLayout;
-
-
+ReactDOM.render(<Demo />, mountNode);
