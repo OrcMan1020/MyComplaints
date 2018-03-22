@@ -85,7 +85,7 @@ class Evaluate extends Component {
                                     numberOfStars={5}
                                 />
                             </div>
-                            <div style={{flex:'1', textAlign:'right', color:'#bbb', fontSize:'13px'}}>
+                            <div style={{flex:'1', textAlign:'right', color:'#bbb', fontSize:'12px'}}>
                                 {STAR_DESC[this.state.rate1]}
                             </div>
                         </Flex>
@@ -103,7 +103,7 @@ class Evaluate extends Component {
                                     numberOfStars={5}
                                 />
                             </div>
-                            <div style={{flex:'1', textAlign:'right', color:'#bbb', fontSize:'13px'}}>
+                            <div style={{flex:'1', textAlign:'right', color:'#bbb', fontSize:'12px'}}>
                                 {STAR_DESC[this.state.rate2]}
                             </div>
                         </Flex>
@@ -121,7 +121,7 @@ class Evaluate extends Component {
                                     numberOfStars={5}
                                 />
                             </div>
-                            <div style={{flex:'1', textAlign:'right', color:'#bbb', fontSize:'13px'}}>
+                            <div style={{flex:'1', textAlign:'right', color:'#bbb', fontSize:'12px'}}>
                                 {STAR_DESC[this.state.rate3]}
                                 </div>
 

@@ -12,7 +12,7 @@
     "preact-router": "^2.5.7",
     "prop-types": "^15.6.0",
     "query-string": "^5.0.1",
-    "rc-form": "^2.0.0",
+    "rc-form": "^2.1.7",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-event-timeline": "^1.5.1",

@@ -233,7 +233,7 @@ class Process extends Component {
                 <Card.Header
                     title={
                         <div >
-                            <img style={{height:'20px', width:'20px', verticalAlign:'bottom'}} src="./img/desc.jpg"/><span style={{fontSize:'16px'}}>处理动态 </span>
+                            <img style={{height:'20px', width:'20px', verticalAlign:'middle'}} src="./img/desc.jpg"/><span style={{fontSize:'16px'}}>处理动态 </span>
                         </div>
                     }
                 />

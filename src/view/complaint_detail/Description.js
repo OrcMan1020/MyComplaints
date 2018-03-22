@@ -14,10 +14,10 @@ class Description extends Component {
     render() {
 
         const icons = [
-            {icon : './img/wechat.png'},
-            {icon : './img/weibo.png'},
-            {icon : './img/unknown.png'},
-            {icon : './img/qq.png'},
+            {icon : './img/icon/wechat.png'},
+            {icon : './img/icon/weibo.png'},
+            {icon : './img/icon/friend.png'},
+            {icon : './img/icon/qq.png'},
 
         ];
 
@@ -27,7 +27,8 @@ class Description extends Component {
                     <Card.Header
                         title={
                             <div >
-                            <img style={{height:'20px', width:'20px', verticalAlign:'bottom'}} src="./img/desc.jpg"/><span style={{fontSize:'16px'}}>事件描述 </span>
+                            <img style={{height:'20px', width:'20px', verticalAlign:'middle'}} src="./img/desc.jpg"/>
+                                <span style={{fontSize:'16px', verticalAlign:'middle'}}>事件描述 </span>
                                 </div>
                         }
                     />

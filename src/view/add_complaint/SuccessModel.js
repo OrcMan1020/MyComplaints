@@ -64,7 +64,14 @@ class SuccessModel extends Component
                                       renderItem={dataItem => (
                                           <div >
                                               <img src={dataItem.icon} style={{ width: '52px', height: '52px' }} alt=""
-                                              onClick={(e)=>console.log(dataItem.icon)}/>
+                                              onClick={(e)=>{
+                                                  console.log(dataItem.icon)
+
+
+
+
+
+                                              }}/>
                                           </div>
                                       )}
                                 />

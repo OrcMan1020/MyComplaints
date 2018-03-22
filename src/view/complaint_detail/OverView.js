@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 
 import { Card, WhiteSpace, Flex } from 'antd-mobile';
 
+
+const statusImg = {
+    'done' : "./img/icon/done.png",
+    'accept' : "./img/icon/accept.png",
+    'reply' : "./img/icon/reply.png"
+}
+
+
 class OverView extends Component
 {
     render() {
@@ -17,21 +25,20 @@ class OverView extends Component
                     title={<div>
 
                         <div style={{fontSize:'15px'}}>徐赛</div>
-                        <WhiteSpace/>
-                        <div style={{color:'#b4b4b4', fontSize:'13px'}}>2018-03-13 10:26</div>
+                        <div style={{color:'#b4b4b4', fontSize:'12px'}}>2018-03-13 10:26</div>
                     </div>}
                     thumb={<img src="./img/avatar.jpg" style={{width: '48px', height:'48px', borderRadius:'50%'}}/>}
-                    extra={<img src="./img/done.jpg" style={{width: '64px', height:'64px', borderRadius:'50%'}}/>}
+                    extra={<img src={statusImg['done']} style={{width: '64px', height:'64px', borderRadius:'50%'}}/>}
                 />
                 <Card.Body style={{wordWrap:'break-word'}}>
                     <div style={{borderLeft:'solid 5px', borderLeftColor:'#108ee9'}}>
                         <div style={{paddingLeft:'16px'}}>
                             <div>
                                 <Flex>
-                                    <span style={{flex:1}}>
-                                        <span style={{color:'#108ee9'}}>[投诉对象]:</span>
-                                    </span>
-                                    <span style={{flex:3}}>康佳电视</span>
+                                    <div style={{flex:1, color:'#108ee9'}}>
+                                        [投诉对象]:
+                                    </div>
+                                    <div style={{flex:3}}>康佳电视</div>
                                 </Flex>
 
                             </div>

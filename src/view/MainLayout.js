@@ -2,19 +2,13 @@
  * Created by saix on 2018/3/12.
  */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import qs from 'query-string';
-import {TabBar, Carousel, Icon, SearchBar, Tabs, WhiteSpace, WingBlank} from 'antd-mobile';
-import { List } from 'antd-mobile';
-import FetchDataPlaceholder from '../component/FetchDataPlaceholder/'
+import {TabBar} from 'antd-mobile';
 import Home from './home/Home'
 import AddComplaint from './add_complaint/AddComplaint';
 import Mine from './mine/Mine';
 
 import '../style/navbar.css'
 import MyNavBar from '../component/MyNavBar/MyNavBar';
-
-import { NavBar} from 'antd-mobile';
 
 
 const tabs = [
@@ -62,6 +56,8 @@ class MainLayout extends Component {
 
 
     componentDidMount() {
+
+
 
     }
 

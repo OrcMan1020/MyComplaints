@@ -51,7 +51,7 @@ class InfoCard extends Component {
                   <Card.Header
                       title={<div>
                           <div style={{fontSize:'15px'}}>{nickName}</div>
-                          <div style={{color:'#b4b4b4', fontSize:'13px'}}>{dateTime}</div>
+                          <div style={{color:'#b4b4b4', fontSize:'12px'}}>{dateTime}</div>
                       </div>}
                       thumb={<img src={avatarUrl} class="info-card card-head-thumb"/>}
                       extra={<img src={img} class="info-card card-head-extra"/>}

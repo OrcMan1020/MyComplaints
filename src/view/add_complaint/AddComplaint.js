@@ -3,12 +3,15 @@
  */
 import React, { Component } from 'react';
 import { List, Card, WhiteSpace, WingBlank, InputItem, TextareaItem, Picker, ImagePicker,
-     Checkbox, Flex, Button } from 'antd-mobile';
+     Checkbox, Flex, Button, Toast } from 'antd-mobile';
 import SuccessModel from './SuccessModel';
 
 import './AddComplaint.css';
 
 import fetch from 'unfetch';
+// import { createForm } from 'rc-form';
+
+import {UploadFile, SubmitComplaint} from '../../utils/APIs'
 
 
 const Item = List.Item;
@@ -54,38 +57,61 @@ class AddComplaint extends Component {
         console.log(this.state.files);
 
         let promises = [];
-
         for(let key in this.state.files){
-
-            let formData = new FormData();
-            formData.append("file", this.state.files[key].file);
             promises.push(
-                fetch("http://localhost:8082" + "/upload" , {
-                    method: 'POST',
-                    headers: {
-                    },
-                    body: formData
-                })
-
+                UploadFile(this.state.files[key].file)
             );
         }
 
-        Promise
-            .all(promises)
-            .then((responses)=>{
-                this.setState({
-                    visible : true
-                })
-            })
-            .catch((err)=>{
-                alert("upload failed!")
-            })
+        for(let key in this.state.secretFiles){
+            promises.push(
+                UploadFile(this.state.secretFiles[key].file, "private")
+            );
+        }
+        Promise.all(promises)
+            .then((results)=>{
+                return SubmitComplaint({
+                    openId : '111', //TODO
+                    objectName : this.getObjectName(),
+                    dateTime: new Date(), //TODO
+                    complainIssue : "nothing", //TODO
+                    detailContent : this.getDetailContent(),
+                    mobile : this.getMobile(),
+                    evidences : results,
+
+                });
+
+            }).catch(e=>{
+                Toast.fail("提交投诉失败!")
+
+            wx.onMenuShareAppMessage({
+                title: '互联网之子',
+                desc: '在长大的过程中，我才慢慢发现，我身边的所有事，别人跟我说的所有事，那些所谓本来如此，注定如此的事，它们其实没有非得如此，事情是可以改变的。更重要的是，有些事既然错了，那就该做出改变。',
+                link: 'http://movie.douban.com/subject/25785114/',
+                imgUrl: 'http://demo.open.weixin.qq.com/jssdk/images/p2166127561.jpg',
+                trigger: function (res) {
+                    alert('用户点击发送给朋友');
+                },
+                success: function (res) {
+                    alert('已分享');
+                },
+                cancel: function (res) {
+                    alert('已取消');
+                },
+                fail: function (res) {
+                    alert(JSON.stringify(res));
+                }
+            });
+
+        })
     }
 
 
 
     render() {
         const { files, secretFiles } = this.state;
+        // const { getFieldProps } = this.props.form;
+
 
         return (
 
@@ -100,6 +126,7 @@ class AddComplaint extends Component {
                     <List className="my-list">
                         <InputItem
                             placeholder= '(必填) 填写投诉对象'
+                            ref="objectName"
                         >投诉对象</InputItem>
 
                         <Picker title="投诉问题">
@@ -110,14 +137,20 @@ class AddComplaint extends Component {
 
                         <InputItem
                             placeholder= '(必填) 填写投诉要求, 35字以内'
+                            ref="request"
+                            maxLength={35}
                         >投诉诉求</InputItem>
                         <TextareaItem
                             title="投诉详情"
                             placeholder="(必填) 请完整描述投诉事件"
                             rows="5"
+                            ref="detailContent"
                         />
                         <InputItem
                             placeholder= '(必填) 填写个人手机号'
+                            type="phone"
+                            ref="mobile"
+
                         >联系电话</InputItem>
                     </List>
 
@@ -128,6 +161,7 @@ class AddComplaint extends Component {
                         <InputItem
                             placeholder= '例如银行账号, 快递单号'
                             type = 'password'
+                            ref="private"
                         >隐藏内容</InputItem>
 
 
@@ -188,6 +222,7 @@ class AddComplaint extends Component {
                                 disabled={!this.state.enableSubmit}
                                 onClick={e=>{
                                     this.uploadFiles();
+                                    //this.dump()
                                     }}
                                 >提交</Button>
                     </div>
@@ -201,6 +236,38 @@ class AddComplaint extends Component {
     }
 
 
+    dump() {
+        console.log(this.getDetailContent())
+    }
+
+    /*
+     get input view value
+
+     */
+    getObjectName() {
+        return this.refs.objectName.state.value;
+    }
+
+    getRequest() {
+        return this.refs.request.state.value;
+    }
+
+    getMobile() {
+        return this.refs.mobile.state.value;
+    }
+
+    getPrivate() {
+        return this.refs.private.state.value;
+    }
+
+    getDetailContent() {
+       return this.refs.detailContent.state.value;
+    }
+
+    ////////////////////////////////////////////////////
+
+
 }
+// const AddComplaintWrapper = createForm()(AddComplaint);
 
 export default AddComplaint;
