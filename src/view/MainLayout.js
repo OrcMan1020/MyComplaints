@@ -9,7 +9,7 @@ import Mine from './mine/Mine';
 
 import '../style/navbar.css'
 import MyNavBar from '../component/MyNavBar/MyNavBar';
-
+import qs from 'query-string';
 
 const tabs = [
     { title: "最热投诉" },
@@ -38,28 +38,33 @@ const iconMap = {
     ]
 
 
-}
+};
 
 
 class MainLayout extends Component {
 
+    componentDidMount() {
+
+    }
+
+
     constructor(props) {
         super(props);
+
+        let search = qs.parse(window.location.search);
+        window.selectedTab = search['selected'] || 'home';
+
         this.state = {
-            selectedTab: window.selectedTab || 'home',
+            selectedTab: window.selectedTab,
             hidden: false,
             fullScreen: false,
             navBarTitle : ''
         };
-    }
-
-
-
-    componentDidMount() {
 
 
 
     }
+
 
     goToTab = (selectedTab) => {
         window.selectedTab = selectedTab;

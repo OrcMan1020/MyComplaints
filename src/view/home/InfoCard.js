@@ -43,7 +43,7 @@ class InfoCard extends Component {
               this.context.router.history.push(
                   {
                       pathname:"/complaint-detail",
-                      search: ''
+                      search: 'complaintNo=' + complainNo
                   }
               )
           }}>

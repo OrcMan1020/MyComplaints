@@ -4,7 +4,33 @@
 
 const API_CONFIG = "https://dev.taixintech.com/wetousutest/api";
 
+/*
+ 1.发起投诉，2审核通过，3商家处理中，4商家回复，5补充投诉，6,确认完成并评价
+ */
+const GetStatusIcon = status => {
+    let s = parseInt(status);
+    switch (s) {
+        case 1:
+            return null;
+        case 2:
+            return null;
+        case 3:
+            return null;
+        case 4:
+            return null;
+        case 5:
+            return null;
+        case 6:
+            return null;
+        default:
+            return null;
+
+
+    }
+}
+
 
 export {
-    API_CONFIG
+    API_CONFIG,
+    GetStatusIcon
 };

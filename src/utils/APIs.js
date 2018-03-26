@@ -2,12 +2,18 @@
  * Created by saix on 2018/3/22.
  */
 
-const TEST = "";
-const API_CONFIG = `https://dev.taixintech${TEST}.com/wetousutest/api/`;
-//"https://dev.taixintech.com/wetousutest/api/uploadFile"
+const TEST = "test";
+const API_CONFIG = `https://weitousuh5.taixintech.com/wetousubackendV1/api/`;
+const API_CONFIG_OLD = `https://dev.taixintech${TEST}.com/wetousutest/api/`;
+
+const isTesting = true;
 
 const URL = (path) => {
     return `${API_CONFIG}${path}`;
+};
+
+const OLDURL = (path) => {
+    return `${API_CONFIG_OLD}${path}`;
 };
 
 const fetchData = (fetchPromise,  json=true)=> {
@@ -35,6 +41,7 @@ const UploadFile = (file, type) => {
         method: 'POST',
         headers: {
         },
+        credentials: isTesting?"":'include',
         body: formData
     }), false);
 
@@ -46,6 +53,7 @@ const SubmitComplaint = complaint => {
         headers: {
             Accept: 'application/json',
         },
+        credentials: isTesting?"":'include',
         body: complaint
     }));
 };
@@ -56,6 +64,7 @@ const SubmitComplainFeedBack = feedback => {
         headers: {
             Accept: 'application/json',
         },
+        credentials: isTesting?"":'include',
         body: feedback
     }));
 };
@@ -66,6 +75,8 @@ const GetComplainItems = (openId, keyword)=>{
         headers: {
             Accept: 'application/json',
         },
+        credentials: isTesting?"":'include',
+
     }));
 };
 
@@ -75,6 +86,8 @@ const GetComplainItem = (complainNo)=>{
         headers: {
             Accept: 'application/json',
         },
+        credentials: isTesting?"":'include',
+
     }));
 };
 
@@ -84,6 +97,8 @@ const GetComplainFeedBacks = complainNo => {
         headers: {
             Accept: 'application/json',
         },
+        credentials: isTesting?"":'include',
+
     }));
 };
 
@@ -93,6 +108,8 @@ const GetUserInfo = openId => {
         headers: {
             Accept: 'application/json',
         },
+        credentials: isTesting?"":'include',
+
     }));
 };
 
@@ -102,7 +119,9 @@ const SetUserInfo = userInfo => {
         headers: {
             Accept: 'application/json',
         },
-        body : userInfo
+        body : userInfo,
+        credentials: isTesting?"":'include',
+
     }));
 }
 
@@ -112,6 +131,8 @@ const GetJSSDKConfig = url => {
         headers: {
             Accept: 'application/json',
         },
+        credentials: isTesting?"":'include',
+
     }));
 };
 
@@ -120,4 +141,7 @@ export {
     SubmitComplaint,
     SubmitComplainFeedBack,
     GetJSSDKConfig,
+    GetComplainItem,
+    GetComplainFeedBacks,
+    GetComplainItems,
 }

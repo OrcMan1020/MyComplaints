@@ -13,6 +13,7 @@ import Evaluate from './view/evaluate/Evaluate';
 import './App.css';
 
 class App extends Component {
+
   render({location}) {
     // https://github.com/reactjs/react-transition-group/issues/37
     // https://reacttraining.com/react-router/web/example/animated-transitions

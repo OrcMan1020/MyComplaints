@@ -1,12 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter as Router} from 'react-router-dom'
-
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import {GetJSSDKConfig}  from './utils/APIs';
-var url = window.location.href.split('#')[0];
+
+import qs from 'query-string';
+
+
+let url = window.location.href.split('#')[0];
+let search = qs.parse(window.location.search);
+let openId = search["openId"];
+// using 123456 as open id for testing
+window.localStorage.setItem("openId", openId||"123456");
+
 GetJSSDKConfig(url) //TODO
     .then(data => {
         window.wx.config({
@@ -18,7 +26,8 @@ GetJSSDKConfig(url) //TODO
             jsApiList: [//需要调用的JS接口列表
                 'checkJsApi',//判断当前客户端版本是否支持指定JS接口
                 'onMenuShareTimeline',//分享给好友
-                'onMenuShareAppMessage'//分享到朋友圈
+                'onMenuShareAppMessage',//分享到朋友圈
+                'openLocation'
             ]
         });
         window.wx.error(function(res){

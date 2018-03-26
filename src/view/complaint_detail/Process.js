@@ -6,6 +6,8 @@ import { Card, WhiteSpace, Flex, Button, Modal, List, TextareaItem, ImagePicker,
     Checkbox, WingBlank} from 'antd-mobile';
 import {Timeline, TimelineEvent} from 'react-event-timeline'
 import ReactStars from 'react-stars';
+import {Loading} from '../Loading';
+import {GetComplainFeedBacks} from '../../utils/APIs';
 
 const AgreeItem = Checkbox.AgreeItem;
 
@@ -32,6 +34,7 @@ class Process extends Component {
 
     constructor(props){
         super(props);
+        this.complaint = this.props.complaint || {};
 
         this.processStep = {
             'step1' : 'pass',
@@ -43,8 +46,21 @@ class Process extends Component {
             addInfoModel: false,
             files : [],
             enableSubmit: false,
+            feedBacks : null
         }
 
+
+
+
+    }
+
+    componentDidMount() {
+        GetComplainFeedBacks(this.complaint.complainNo)
+            .then(res=>{
+                this.setState({
+                    feedBacks : []
+                })
+            })
     }
 
     showModal = key => (e) => {
@@ -67,6 +83,7 @@ class Process extends Component {
         else {
             return (
                 <TimelineEvent
+                    title={""}
                     icon={<img style={{borderRadius:'50%',width:'32px',height:'32px'}}
                              src={src}/>}
                     bubbleStyle={{borderColor:'#f5f5f9'}}
@@ -76,6 +93,19 @@ class Process extends Component {
                 </TimelineEvent>
             )
         }
+    }
+
+    renderStep0() {
+        return (
+            <div>
+                <TimeLineHeader
+                    name="徐赛"
+                    action="发起投诉"
+                    date="2018-03-07 15:06:00"
+                />
+            </div>
+
+        );
     }
 
     renderStep1() {
@@ -109,13 +139,13 @@ class Process extends Component {
         }
         if(status==='done') {
             return (
-                _render('商家处理中...', '2018-03-07 15:06:00', '已分配给商家: 康佳售后服务中心')
+                _render('商家处理中', '2018-03-07 15:06:00', '已分配给商家: 康佳售后服务中心')
             );
         }
         else if(status === 'need_info'){
             return (
                 <div>
-                    {_render('用户补充资料...', '2018-03-07 15:06:00', '资料不完整, 请补充购买凭据后再提交')}
+                    {_render('用户补充资料', '2018-03-07 15:06:00', '资料不完整, 请补充购买凭据后再提交')}
                     <WhiteSpace size="lg"/>
                     <Button type="primary"
                             inline
@@ -226,6 +256,14 @@ class Process extends Component {
 
 
     render() {
+
+        if(!this.state.feedBacks){
+            return (
+                <Loading/>
+            )
+        }
+
+
         return (
 
         <div class='process'>
@@ -240,6 +278,12 @@ class Process extends Component {
                 <hr/>
                 <Card.Body style={{wordWrap:'break-word'}}>
                     <Timeline>
+                        {
+                            this.renderTimeLineItem(true,
+                                "./img/avatar.jpg",
+                                this.renderStep0.bind(this)
+                            )
+                        }
                         {this.renderTimeLineItem(true,
                             "./img/avatar.jpg",
                             this.renderStep1.bind(this)

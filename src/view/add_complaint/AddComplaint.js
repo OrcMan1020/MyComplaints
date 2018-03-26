@@ -71,37 +71,24 @@ class AddComplaint extends Component {
         Promise.all(promises)
             .then((results)=>{
                 return SubmitComplaint({
-                    openId : '111', //TODO
+                    openId : window.localStorage.openId,
                     objectName : this.getObjectName(),
                     dateTime: new Date(), //TODO
-                    complainIssue : "nothing", //TODO
+                    complainIssue : this.getComplaintIssue(),
                     detailContent : this.getDetailContent(),
                     mobile : this.getMobile(),
-                    evidences : results,
+                    evidences : results.filter(el=>{
+                        return el.indexOf("private") != 0;
+                    }),
+                    privateContent: this.getPrivate(),
+                    privateEvidences : results.filter(el=>{
+                        return el.indexOf("private") === 0;
+                    })
 
                 });
 
             }).catch(e=>{
                 Toast.fail("提交投诉失败!")
-
-            wx.onMenuShareAppMessage({
-                title: '互联网之子',
-                desc: '在长大的过程中，我才慢慢发现，我身边的所有事，别人跟我说的所有事，那些所谓本来如此，注定如此的事，它们其实没有非得如此，事情是可以改变的。更重要的是，有些事既然错了，那就该做出改变。',
-                link: 'http://movie.douban.com/subject/25785114/',
-                imgUrl: 'http://demo.open.weixin.qq.com/jssdk/images/p2166127561.jpg',
-                trigger: function (res) {
-                    alert('用户点击发送给朋友');
-                },
-                success: function (res) {
-                    alert('已分享');
-                },
-                cancel: function (res) {
-                    alert('已取消');
-                },
-                fail: function (res) {
-                    alert(JSON.stringify(res));
-                }
-            });
 
         })
     }
@@ -129,11 +116,16 @@ class AddComplaint extends Component {
                             ref="objectName"
                         >投诉对象</InputItem>
 
-                        <Picker title="投诉问题">
-                            <List.Item arrow="horizontal">
-                                投诉问题<span style={{paddingLeft:'30px', color:'#bbb'}}>(必填) 选择投诉问题的核心</span>
-                            </List.Item>
-                        </Picker>
+                        {/*<Picker title="投诉问题">*/}
+                            {/*<List.Item arrow="horizontal">*/}
+                                {/*投诉问题<span style={{paddingLeft:'30px', color:'#bbb'}}>(必填) 选择投诉问题的核心</span>*/}
+                            {/*</List.Item>*/}
+                        {/*</Picker>*/}
+                        <InputItem
+                            placeholder= '(必填) 填写投诉问题, 35字以内'
+                            ref="complaintIssue"
+                            maxLength={35}
+                        >投诉问题</InputItem>
 
                         <InputItem
                             placeholder= '(必填) 填写投诉要求, 35字以内'
@@ -246,6 +238,10 @@ class AddComplaint extends Component {
      */
     getObjectName() {
         return this.refs.objectName.state.value;
+    }
+
+    getComplaintIssue() {
+        return this.refs.complaintIssue.state.value;
     }
 
     getRequest() {

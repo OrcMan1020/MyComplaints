@@ -2,6 +2,18 @@
     border-bottom: solid 1px #bbbbbb;
 }
 
+.complaint-detail {
+    padding-bottom: 32px;
+}
+
+.complaint-detail .am-card-body {
+
+    border-top: none;
+}
+.complaint-detail .complaint-overview .am-card-header-content {
+    margin-right: -100px;
+}
+
 .process .am-card-header {
     border-bottom: solid 1px #bbbbbb;
 }

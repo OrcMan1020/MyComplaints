@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import qs from 'query-string';
 import {TabBar, Carousel, Icon, SearchBar, Tabs, WhiteSpace, WingBlank, List, ListView} from 'antd-mobile';
 import LineCrossText from '../../component/LineCrossText/'
+import {Loading} from '../Loading';
 import fetch from 'unfetch';
 
 import './Home.css'
@@ -44,6 +45,10 @@ class Home extends Component {
 
     componentDidMount() {
         this.init()
+    }
+
+    componentWillUnmount(){
+        window.scrollTo(0,0)
     }
 
     init(){
@@ -135,7 +140,7 @@ class Home extends Component {
                 ref={el => this.lv = el}
                 dataSource={this.state.dataSource}
                 renderFooter={() => (<div style={{ padding: 0, textAlign: 'center'/*,  backgroundColor: '#F5F5F9'*/}}>
-                    {this.state.isLoading ? '正在载入...' : '到底啦!'}
+                    {this.state.isLoading ? <Loading/> : '到底啦!'}
                 </div>)}
                 renderRow={row}
                 renderSeparator={separator}

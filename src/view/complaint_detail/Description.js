@@ -13,13 +13,21 @@ class Description extends Component {
 
     render() {
 
-        const icons = [
-            {icon : './img/icon/wechat.png'},
-            {icon : './img/icon/weibo.png'},
-            {icon : './img/icon/friend.png'},
-            {icon : './img/icon/qq.png'},
+        const complaint = this.props.complaint;
 
-        ];
+        complaint.evidences = complaint.evidences || [];
+        const icons = complaint.evidences.map(el=>{
+            return {icon : el}
+        });
+        //     [
+        //     {icon : './img/icon/wechat.png'},
+        //     {icon : './img/icon/weibo.png'},
+        //     {icon : './img/icon/friend.png'},
+        //     {icon : './img/icon/qq.png'},
+        //
+        // ];
+
+
 
         return (
             <div class='description'>
@@ -35,7 +43,7 @@ class Description extends Component {
                     <hr/>
                     <Card.Body style={{wordWrap:'break-word'}}>
                         <div>
-                            2月7号在苏宁易购购买2月7号在苏宁易购购买2月7号在苏宁易购购买2月7号在苏宁易购购买2月7号在苏宁易购购买2月7号在苏宁易购购买2月7号在苏宁易购购买2月7号在苏宁易购购买2月7号在苏宁易购购买2月7号在苏宁易购购买2月7号在苏宁易购购买2月7号在苏宁易购购买2月7号在苏宁易购购买2月7号在苏宁易购购买2月7号在苏宁易购购买2月7号在苏宁易购购买2月7号在苏宁易购购买
+                            {complaint.detailContent}
                         </div>
                         <WhiteSpace size="lg"/>
                         <Grid data={icons}
