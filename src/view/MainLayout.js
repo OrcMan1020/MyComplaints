@@ -10,6 +10,7 @@ import Mine from './mine/Mine';
 import '../style/navbar.css'
 import MyNavBar from '../component/MyNavBar/MyNavBar';
 import qs from 'query-string';
+import cookie from 'react-cookies'
 
 const tabs = [
     { title: "最热投诉" },
@@ -44,7 +45,8 @@ const iconMap = {
 class MainLayout extends Component {
 
     componentDidMount() {
-
+        // cookie.save('unionid', 1)
+        console.log(cookie.load('unionid'));
     }
 
 
@@ -52,7 +54,7 @@ class MainLayout extends Component {
         super(props);
 
         let search = qs.parse(window.location.search);
-        window.selectedTab = search['selected'] || 'home';
+        window.selectedTab = search['selected'] || window.selectedTab || 'home';
 
         this.state = {
             selectedTab: window.selectedTab,
@@ -66,10 +68,12 @@ class MainLayout extends Component {
     }
 
 
-    goToTab = (selectedTab) => {
+    goToTab = (selectedTab, refresh) => {
         window.selectedTab = selectedTab;
+        window.scrollTo(0,0)
         this.setState({
-                selectedTab : selectedTab
+                selectedTab : selectedTab,
+                refresh : refresh
             }
         );
     }
@@ -112,7 +116,7 @@ class MainLayout extends Component {
                                 this.goToTab('home')
                             }}
                         >
-                            <Home></Home>
+                            <Home refresh={this.state.refresh}></Home>
                         </TabBar.Item>
 
 

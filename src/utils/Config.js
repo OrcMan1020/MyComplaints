@@ -29,8 +29,16 @@ const GetStatusIcon = status => {
     }
 }
 
+const ShareIcons = [
+    {icon : './img/icon/wechat.png'},
+    {icon : './img/icon/weibo.png'},
+    {icon : './img/icon/friend.png'},
+    {icon : './img/icon/qq.png'},
+
+];
 
 export {
     API_CONFIG,
-    GetStatusIcon
+    GetStatusIcon,
+    ShareIcons
 };

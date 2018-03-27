@@ -15,8 +15,9 @@ class Description extends Component {
 
         const complaint = this.props.complaint;
 
-        complaint.evidences = complaint.evidences || [];
-        const icons = complaint.evidences.map(el=>{
+        complaint.evidences = complaint.evidences || "";
+        const evidences = complaint.evidences.split(",");
+        const icons = evidences.map(el=>{
             return {icon : el}
         });
         //     [

@@ -10,6 +10,7 @@ import './AddComplaint.css';
 
 import fetch from 'unfetch';
 // import { createForm } from 'rc-form';
+import monent from 'moment';
 
 import {UploadFile, SubmitComplaint} from '../../utils/APIs'
 
@@ -31,18 +32,20 @@ class AddComplaint extends Component {
             files: data,
             secretFiles : secretData,
             enableSubmit: false,
-            visible: false
+            successVisible: false
         };
+
+        console.log(monent(new Date()).format("YYYY-MM-DD HH:mm:ss"))
     }
 
     onFinish = () => {
         this.setState({
-            visible: false,
+            successVisible: false,
             files : [],
             secretFiles : [],
             enableSubmit : false
         });
-        this.props.goToTab('home');
+        this.props.goToTab('home', true);
     }
 
     onChangeFiles = (filesName)=>{
@@ -53,8 +56,10 @@ class AddComplaint extends Component {
         }
     }
 
-    uploadFiles() {
+    submit() {
         console.log(this.state.files);
+
+        Toast.loading('正在提交, 请稍等...', 30, null, true);
 
         let promises = [];
         for(let key in this.state.files){
@@ -71,24 +76,33 @@ class AddComplaint extends Component {
         Promise.all(promises)
             .then((results)=>{
                 return SubmitComplaint({
-                    openId : window.localStorage.openId,
+                    unionId : window.localStorage.unionId,
                     objectName : this.getObjectName(),
-                    dateTime: new Date(), //TODO
+                    dateTime: monent(new Date()).format("YYYY-MM-DD HH:mm:ss"),
                     complainIssue : this.getComplaintIssue(),
+                    request : this.getRequest(),
                     detailContent : this.getDetailContent(),
                     mobile : this.getMobile(),
                     evidences : results.filter(el=>{
                         return el.indexOf("private") != 0;
-                    }),
+                    }).join(","),
                     privateContent: this.getPrivate(),
                     privateEvidences : results.filter(el=>{
                         return el.indexOf("private") === 0;
-                    })
+                    }).join(","),
 
                 });
 
-            }).catch(e=>{
-                Toast.fail("提交投诉失败!")
+            }).then(res=>{
+            Toast.hide();
+            //Toast.("提交投诉失败!");
+            this.setState({
+                successVisible :  true
+            })
+        })
+            .catch(e=>{
+                Toast.hide();
+                Toast.fail("提交投诉失败!");
 
         })
     }
@@ -104,7 +118,7 @@ class AddComplaint extends Component {
 
             <div>
                 <SuccessModel
-                    visible={this.state.visible}
+                    visible={this.state.successVisible}
                     onFinish={this.onFinish}
                 />
                 <div class='complaint'>
@@ -213,7 +227,7 @@ class AddComplaint extends Component {
                         <Button className="btn" type="primary"
                                 disabled={!this.state.enableSubmit}
                                 onClick={e=>{
-                                    this.uploadFiles();
+                                    this.submit();
                                     //this.dump()
                                     }}
                                 >提交</Button>

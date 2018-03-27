@@ -39,6 +39,7 @@ class SuccessModel extends Component
                                         onClick={(e)=>{
                                             this.props.visible = false;
                                             this.props.onFinish();
+
                                         }}/>
                                     </div>
                                     <div class="right-background">

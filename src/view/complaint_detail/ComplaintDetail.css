@@ -61,3 +61,9 @@
         transform: scaleY(0.5);
     }
 }
+
+
+.complaint-detail-ui-line-text-wrap {
+    /*font-size: 20px;*/
+    background-color: #FFFFFF;
+}

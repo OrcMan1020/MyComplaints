@@ -42,21 +42,21 @@ class AboutUs extends Component {
                     <div class="about-us-info" >
                         <div class="about-us-info-content">
                             <img src="./img/phone-icon.png"/>
-                            <span>热线: 010-12345678</span><span style={{fontSize:'14px', color:'#202020'}}>(常规上班时间接听)</span>
+                            <span>热线: 010-12345678</span><span style={{fontSize:'13px', color:'#202020'}}>(常规上班时间接听)</span>
                         </div>
                     </div>
                     <WhiteSpace size="md"/>
                     <div class="about-us-info" >
                         <div class="about-us-info-content">
                             <img src="./img/mail-icon.png"/>
-                            <span>jts@sina.com</span><span style={{fontSize:'14px', color:'#202020'}}>(供投诉人使用)</span>
+                            <span>jts@sina.com</span><span style={{fontSize:'13px', color:'#202020'}}>(供投诉人使用)</span>
                         </div>
                     </div>
                     <WhiteSpace size="md"/>
                     <div class="about-us-info" >
                         <div class="about-us-info-content">
                             <img src="./img/mail-icon.png"/>
-                            <span>jtsord@sina.com</span><span style={{fontSize:'14px', color:'#202020'}}>(供被投诉方或媒体使用)</span>
+                            <span>jtsord@sina.com</span><span style={{fontSize:'13px', color:'#202020'}}>(供被投诉方或媒体使用)</span>
                         </div>
                     </div>
                 </div>

@@ -31,7 +31,7 @@ class OverView extends Component
                     title={<div>
 
                         <div style={{fontSize:'15px'}}>{complaint.nickName}</div>
-                        <div style={{color:'#b4b4b4', fontSize:'12px'}}>2018-03-13 10:26</div>
+                        <div style={{color:'#b4b4b4', fontSize:'12px'}}>{complaint.dateTime}</div>
                     </div>}
                     thumb={<img src={complaint.avatarUrl} style={{width: '48px', height:'48px', borderRadius:'50%'}}/>}
                     extra={<img src={statusImg['done']} style={{width: '64px', height:'64px', borderRadius:'50%'}}/>}

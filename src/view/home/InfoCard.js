@@ -29,7 +29,7 @@ class InfoCard extends Component {
 
 
 
-        const {unionId, complainNo, objectName, complainIssue, request, detailContent, nickName, avatarUrl, dateTime, status} = this.props.data;
+        const {unionId, complainNo, objectName, complainIssue, request, detailContent, nickName, avatarUrl, dateTime, status, openId} = this.props.data;
 
 
 
@@ -38,12 +38,14 @@ class InfoCard extends Component {
 
           <div class="info-card" id={unionId}
                complainNo={complainNo}
+               openId={openId}
                onClick={()=>{
 
               this.context.router.history.push(
                   {
                       pathname:"/complaint-detail",
-                      search: 'complaintNo=' + complainNo
+                      search: 'complaintNo=' + complainNo,
+
                   }
               )
           }}>
@@ -57,7 +59,10 @@ class InfoCard extends Component {
                       extra={<img src={img} class="info-card card-head-extra"/>}
                   />
                   <Card.Body>
+                      <WhiteSpace/>
+
                       <div style={{fontSize:'18px'}}>{complainIssue}</div>
+                      <WhiteSpace/>
                       <div style={{width:'100%', color:'#b4b4b4', fontSize:'13px', wordWrap:'break-word', whiteSpace:'normal'}}>{detailContent}</div>
 
                   </Card.Body>

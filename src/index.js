@@ -7,26 +7,32 @@ import registerServiceWorker from './registerServiceWorker';
 import {GetJSSDKConfig}  from './utils/APIs';
 
 import qs from 'query-string';
+import cookie from 'react-cookies'
 
 
 let url = window.location.href.split('#')[0];
 let search = qs.parse(window.location.search);
-let openId = search["openId"];
+let openId = search["openId"] || "123456";
+let unionId = cookie.load("unionId") || "oqzX704sS2T9xSNF54SsI_NErdlo";
 // using 123456 as open id for testing
 window.localStorage.setItem("openId", openId||"123456");
+window.localStorage.setItem("unionId", unionId);
 
 GetJSSDKConfig(url) //TODO
     .then(data => {
         window.wx.config({
-            debug: false,////生产环境需要关闭debug模式
-            appId: data.appid,//appId通过微信服务号后台查看
-            timestamp: data.timestamp,//生成签名的时间戳
-            nonceStr: data.nonceStr,//生成签名的随机字符串
-            signature: data.signature,//签名
-            jsApiList: [//需要调用的JS接口列表
+            debug: false,
+            appId: data.appid,
+            timestamp: data.timestamp,
+            nonceStr: data.nonceStr,
+            signature: data.signature,
+            jsApiList: [
                 'checkJsApi',//判断当前客户端版本是否支持指定JS接口
                 'onMenuShareTimeline',//分享给好友
                 'onMenuShareAppMessage',//分享到朋友圈
+                'onMenuShareQQ', // QQ
+                'onMenuShareWeibo', //
+                'onMenuShareQZone', //
                 'openLocation'
             ]
         });

@@ -3,10 +3,10 @@
  */
 
 const TEST = "test";
-const API_CONFIG = `https://weitousuh5.taixintech.com/wetousubackendV1/api/`;
+const API_CONFIG = ` https://weitousuh5.taixintech.com/wetousubackendV1/api/`;
 const API_CONFIG_OLD = `https://dev.taixintech${TEST}.com/wetousutest/api/`;
 
-const isTesting = true;
+const isTesting = false;
 
 const URL = (path) => {
     return `${API_CONFIG}${path}`;
@@ -48,13 +48,15 @@ const UploadFile = (file, type) => {
 };
 
 const SubmitComplaint = complaint => {
-    return fetchData(fetch(URL("comaplainItem") , {
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Accept", "application/json");
+
+    return fetchData(fetch(URL('comaplainItem') , {
         method: 'POST',
-        headers: {
-            Accept: 'application/json',
-        },
+        headers: myHeaders,
         credentials: isTesting?"":'include',
-        body: complaint
+        body: JSON.stringify(complaint)
     }));
 };
 
@@ -65,12 +67,12 @@ const SubmitComplainFeedBack = feedback => {
             Accept: 'application/json',
         },
         credentials: isTesting?"":'include',
-        body: feedback
+        body: JSON.stringify(feedback)
     }));
 };
 
-const GetComplainItems = (openId, keyword)=>{
-    return fetchData(fetch(URL("getComplainItems?openId=" + openId) , {
+const GetComplainItems = (unionId, keyword)=>{
+    return fetchData(fetch(URL("getComplainItems?unionId=" + unionId) , {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -102,8 +104,8 @@ const GetComplainFeedBacks = complainNo => {
     }));
 };
 
-const GetUserInfo = openId => {
-    return fetchData(fetch(URL("user?openId=" + openId) , {
+const GetUserInfo = unionId => {
+    return fetchData(fetch(URL("user?unionId=" + unionId) , {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -119,7 +121,7 @@ const SetUserInfo = userInfo => {
         headers: {
             Accept: 'application/json',
         },
-        body : userInfo,
+        body : JSON.stringify(userInfo),
         credentials: isTesting?"":'include',
 
     }));
@@ -136,6 +138,17 @@ const GetJSSDKConfig = url => {
     }));
 };
 
+const GetHottestComplains = (page, size, searchKey) => {
+    return fetchData(fetch(URL(`getHottestComplains?page=${page}&size=${size}&search=${searchKey}`) , {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+        },
+        credentials: isTesting?"":'include',
+
+    }));
+}
+
 export {
     UploadFile,
     SubmitComplaint,
@@ -144,4 +157,6 @@ export {
     GetComplainItem,
     GetComplainFeedBacks,
     GetComplainItems,
+    GetUserInfo,
+    GetHottestComplains,
 }

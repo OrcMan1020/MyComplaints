@@ -14,6 +14,7 @@ import InfoCar from './InfoCard';
 import '../../style/list.css'
 
 import {API_CONFIG} from "../../utils/Config";
+import {GetHottestComplains} from '../../utils/APIs';
 
 const tabs = [
     { title: "最热投诉", path :  "getHottestComplains"},
@@ -48,7 +49,7 @@ class Home extends Component {
     }
 
     componentWillUnmount(){
-        window.scrollTo(0,0)
+        //window.scrollTo(0,0)
     }
 
     init(){
@@ -71,13 +72,7 @@ class Home extends Component {
 
 
     fetchData(){
-        fetch(`${API_CONFIG}/getHottestComplains?page=${this.currentPage}&size=${this.pageSize}&search=${this.searchKey}`,{
-            method: 'GET',
-            Accept: 'application/json',
-        })
-            .then((response)=>{
-                return response.json()
-            })
+        GetHottestComplains(this.currentPage, this.pageSize, this.searchKey)
             .then((data) => {
                 this.totalPages = data.totalPages;
                 let hasMore = true;
@@ -157,6 +152,10 @@ class Home extends Component {
 
 
     render() {
+        if(this.props.refresh){
+            this.props.refresh = false
+            this.init();
+        }
         return (
 
             <div>
