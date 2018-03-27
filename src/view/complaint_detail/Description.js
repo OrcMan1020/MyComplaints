@@ -5,6 +5,7 @@
 import React, { Component } from 'react';
 
 import { Card, WhiteSpace, Flex, Grid } from 'antd-mobile';
+import {IMAGE_URL} from '../../utils/APIs';
 
 import './ComplaintDetail.css'
 
@@ -18,7 +19,7 @@ class Description extends Component {
         complaint.evidences = complaint.evidences || "";
         const evidences = complaint.evidences.split(",");
         const icons = evidences.map(el=>{
-            return {icon : el}
+            return {icon : IMAGE_URL(el)}
         });
         //     [
         //     {icon : './img/icon/wechat.png'},

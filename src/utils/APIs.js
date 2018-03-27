@@ -5,7 +5,9 @@
 const TEST = "test";
 const API_CONFIG = ` https://weitousuh5.taixintech.com/wetousubackendV1/api/`;
 const API_CONFIG_OLD = `https://dev.taixintech${TEST}.com/wetousutest/api/`;
-
+const IMAGE_URL = fileName => {
+    return `https://weitousuh5.taixintech.com/wetousuPhoto/${fileName}`;
+}
 const isTesting = false;
 
 const URL = (path) => {
@@ -159,4 +161,5 @@ export {
     GetComplainItems,
     GetUserInfo,
     GetHottestComplains,
+    IMAGE_URL,
 }
