@@ -80,7 +80,7 @@ class AddComplaint extends Component {
                     objectName : this.getObjectName(),
                     dateTime: monent(new Date()).format("YYYY-MM-DD HH:mm:ss"),
                     complainIssue : this.getComplaintIssue(),
-                    request : this.getRequest(),
+                    requestAmount : this.getRequest(),
                     detailContent : this.getDetailContent(),
                     mobile : this.getMobile(),
                     evidences : results.filter(el=>{
@@ -166,7 +166,6 @@ class AddComplaint extends Component {
 
                         <InputItem
                             placeholder= '例如银行账号, 快递单号'
-                            type = 'password'
                             ref="private"
                         >隐藏内容</InputItem>
 
@@ -263,7 +262,8 @@ class AddComplaint extends Component {
     }
 
     getMobile() {
-        return this.refs.mobile.state.value;
+        let value = this.refs.mobile.state.value || "";
+        return value.split(" ").join("");
     }
 
     getPrivate() {

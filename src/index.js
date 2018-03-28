@@ -33,7 +33,8 @@ GetJSSDKConfig(url) //TODO
                 'onMenuShareQQ', // QQ
                 'onMenuShareWeibo', //
                 'onMenuShareQZone', //
-                'openLocation'
+                'openLocation',
+                'chooseImage'
             ]
         });
         window.wx.error(function(res){
@@ -49,7 +50,8 @@ GetJSSDKConfig(url) //TODO
             window.wx.checkJsApi({
                 jsApiList: [
                     'onMenuShareTimeline',
-                    'onMenuShareAppMessage'
+                    'onMenuShareAppMessage',
+                    'chooseImage'
                 ],
                 success: function (res) {
                     //alert(JSON.stringify(res));
