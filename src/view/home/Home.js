@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import qs from 'query-string';
-import {TabBar, Carousel, Icon, SearchBar, Tabs, WhiteSpace, WingBlank, List, ListView} from 'antd-mobile';
+import {TabBar, Carousel, Icon, SearchBar, Tabs, WhiteSpace, WingBlank, List, ListView, PullToRefresh} from 'antd-mobile';
 import LineCrossText from '../../component/LineCrossText/'
 import {Loading} from '../Loading';
 import fetch from 'unfetch';
@@ -35,7 +35,7 @@ class Home extends Component {
         });
 
         this.state = {
-            imgHeight: 176,
+            // imgHeight: 176,
             slideIndex: 0,
             initialPage: window.initialPage || 0,
             data: [],
@@ -61,6 +61,7 @@ class Home extends Component {
         this.searchKey = ""
 
         this.setState({
+
             isLoading : true,
             hasMore: false,
             dataSource: this.state.dataSource.cloneWithRows(this.rData)
@@ -134,22 +135,28 @@ class Home extends Component {
             <ListView
                 ref={el => this.lv = el}
                 dataSource={this.state.dataSource}
-                renderFooter={() => (<div style={{ padding: 0, textAlign: 'center'/*,  backgroundColor: '#F5F5F9'*/}}>
-                    {this.state.isLoading ? <Loading/> : (!this.state.hasMore?'到底啦!':"")}
-                </div>)}
                 renderRow={row}
                 renderSeparator={separator}
                 className="am-list"
                 pageSize={4}
                 useBodyScroll
-                onScroll={() => { console.log('scroll'); }}
-                scrollRenderAheadDistance={500}
-                onEndReached={this.onEndReached.bind(this)}
-                onEndReachedThreshold={10}
+                pullToRefresh={<PullToRefresh
+                    refreshing={this.state.isLoading}
+                    onRefresh={this.onRefresh}
+                    direction={'up'}
+                    distanceToRefresh={30}
+                />}
             />
         )
     }
-
+    onRefresh = () => {
+        if (this.state.isLoading || !this.state.hasMore) {
+            return;
+        }
+        this.setState({isLoading: true });
+        // simulate initial Ajax
+        this.fetchData();
+    };
 
     render() {
         if(this.props.refresh){
@@ -179,7 +186,7 @@ class Home extends Component {
                             <img
                                 src={`./img/2.png`}
                                 alt=""
-                                style={{ width: '100%', verticalAlign: 'top' }}
+                                style={{ width: '100%', verticalAlign: 'top', height:'100%' }}
                                 onLoad={() => {
                                     // fire window resize event to change height
                                     window.dispatchEvent(new Event('resize'));
