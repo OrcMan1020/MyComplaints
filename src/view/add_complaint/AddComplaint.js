@@ -102,7 +102,7 @@ class AddComplaint extends Component {
         })
             .catch(e=>{
                 Toast.hide();
-                Toast.fail("提交投诉失败!");
+                Toast.fail("提交投诉失败! ===>" + e.toString());
 
         })
     }

@@ -29,6 +29,8 @@
 }
 .app.page{
   overflow: hidden;
+  /*padding-top: 45px;*/
+  /*padding-bottom:48px;;*/
 }
 .page .page-content-wrap-fix{
   /*padding: 5px 0;*/
@@ -61,6 +63,8 @@
 .app .am-tabs{
   padding-bottom: 20px;
 }
+
+
 .app .am-tabs-tab-bar-wrap{
   position: fixed;
   bottom: 0;

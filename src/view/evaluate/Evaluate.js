@@ -2,9 +2,11 @@
  * Created by saix on 2018/3/16.
  */
 import React, { Component } from 'react';
-import {TextareaItem, WhiteSpace, NavBar, Card, Icon, Flex, WingBlank, Button} from 'antd-mobile';
+import {TextareaItem, WhiteSpace, NavBar, Card, Icon, Flex, WingBlank, Button, Toast} from 'antd-mobile';
+import MyNavBar from '../../component/MyNavBar/MyNavBar';
 import StarRatings from 'react-star-ratings';
-
+import {SubmitComplainFeedBack} from "../../utils/APIs";
+import qs from 'query-string';
 import "./Evaluate.css";
 
 const STAR_DESC = [
@@ -25,6 +27,12 @@ class Evaluate extends Component {
             'rate2' : 0,
             'rate3' : 0
         }
+
+        const {location={}} = this.props
+        const {search=''} = location
+        const queryObj = qs.parse(search)
+        this.complaintNo = queryObj['complaintNo'] || ''
+        this.nickName = queryObj['nickName'] || ''
     }
 
     goBack = () => {
@@ -39,24 +47,41 @@ class Evaluate extends Component {
             })
         }
     }
+
+    submitComplainFeedBack () {
+        SubmitComplainFeedBack({
+            complainNo : this.complaintNo,
+            objectName : this.nickName,
+            status : this.refs.comment.state.value || "",
+            feedBackScore : {
+                service : this.state.rate1,
+                speed : this.state.rate2,
+                satis : this.state.rate3
+            }
+        })
+            .then(res=>{
+                Toast.success("提交评价成功!", 2, ()=>{
+                    //this.goBack();
+                    //this.context.router.
+                })
+            })
+            .catch(e=>{
+                Toast.fail("提交评价失败!", 2);
+            })
+    }
+
     render() {
         return (
             <div class="evaluate">
-                <NavBar
-                    mode="dark"
-                    icon={<Icon type="left" size="lg"/>}
-                    prefixCls='am-navbar-dark'
-                    onLeftClick={(e)=>{this.goBack()}}
 
-                >
-                    评价
-                </NavBar>
+                <MyNavBar title={"评价"}/>
 
                 <WhiteSpace size={'lg'}/>
                 <TextareaItem
                     rows={5}
                     placeholder="请说说对商家处理结果是否满意? 帮助我们进步哦~"
                     count={500}
+                    ref="comment"
                 />
 
                 <WhiteSpace size={'lg'}/>
@@ -137,7 +162,9 @@ class Evaluate extends Component {
 
                     <WingBlank size="lg"/>
                     <Button className="btn" type="primary"
-                            onClick={(e)=>{}}
+                            onClick={(e)=>{
+
+                            }}
                     >提交评价</Button>
                 </div>
 

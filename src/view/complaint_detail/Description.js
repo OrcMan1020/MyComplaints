@@ -17,10 +17,14 @@ class Description extends Component {
         const complaint = this.props.complaint;
 
         complaint.evidences = complaint.evidences || "";
-        const evidences = complaint.evidences.split(",");
-        const icons = evidences.map(el=>{
-            return {icon : IMAGE_URL(el)}
-        });
+        let icons = [];
+        if (complaint.evidences.length>0){
+            const evidences = complaint.evidences.split(",");
+            icons = evidences.map(el=>{
+                return {icon : IMAGE_URL(el)}
+            });
+        }
+
         //     [
         //     {icon : './img/icon/wechat.png'},
         //     {icon : './img/icon/weibo.png'},

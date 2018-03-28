@@ -7,6 +7,13 @@ const TEST = "test";
 const API_CONFIG = ` https://weitousuh5.taixintech.com/wetousubackendV1/api/`;
 const API_CONFIG_OLD = `https://dev.taixintech${TEST}.com/wetousutest/api/`;
 const IMAGE_URL = fileName => {
+    fileName = fileName || "";
+    if (fileName.length === 0) {
+        return null;
+    }
+    if(fileName.indexOf('http') === 0 ){
+        return fileName;
+    }
     return `https://weitousuh5.taixintech.com/wetousuPhoto/${fileName}`;
 }
 const isTesting = false;

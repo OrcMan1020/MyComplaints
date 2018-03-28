@@ -7,7 +7,7 @@ import { Card, WhiteSpace, Flex, Button, Modal, List, TextareaItem, ImagePicker,
 import {Timeline, TimelineEvent} from 'react-event-timeline'
 import ReactStars from 'react-stars';
 import {Loading} from '../Loading';
-import {GetComplainFeedBacks} from '../../utils/APIs';
+import {GetComplainFeedBacks, IMAGE_URL} from '../../utils/APIs';
 
 const AgreeItem = Checkbox.AgreeItem;
 
@@ -36,12 +36,6 @@ class Process extends Component {
         super(props);
         this.complaint = this.props.complaint || {};
 
-        this.processStep = {
-            'step1' : 'pass',
-            'step2' : 'need_info',
-            'step3' : 'need_rating',
-        }
-
         this.state = {
             addInfoModel: false,
             files : [],
@@ -57,8 +51,14 @@ class Process extends Component {
     componentDidMount() {
         GetComplainFeedBacks(this.complaint.complainNo)
             .then(res=>{
+                let res2 = res.sort((el1, el2)=> {
+                    return el1.dateTime.localeCompare(el2)>0;
+                })
+                res2.forEach(el=>{
+                    el.feedBackContent = el.feedBackContent || "无内容"
+                })
                 this.setState({
-                    feedBacks : []
+                    feedBacks : res2
                 })
             })
     }
@@ -76,7 +76,7 @@ class Process extends Component {
     };
 
 
-    renderTimeLineItem(display, src, contentRender, contentStatus){
+    renderTimeLineItem(display, src, feedback, isLast){
         if(!display) {
             return null;
         }
@@ -89,182 +89,259 @@ class Process extends Component {
                     bubbleStyle={{borderColor:'#f5f5f9'}}
 
                 >
-                    {contentRender(contentStatus)}
+                    {this.renderFeedback(feedback, isLast)}
                 </TimelineEvent>
             )
         }
     }
 
-    renderStep0() {
+
+
+    renderCommonContent(feedback) {
         return (
             <div>
                 <TimeLineHeader
-                    name="徐赛"
-                    action="发起投诉"
-                    date="2018-03-07 15:06:00"
+                    name={feedback.objectName}
+                    action={feedback.status}
+                    date={feedback.dateTime}
                 />
+                <div style={{fontSize:'14px', color:'#878787'}}>
+                    {feedback.feedBackContent}
+                </div>
+            </div>
+        )
+    }
+
+    renderSubmitComplaint(feedback) {
+        return (
+            <div>
+                {this.renderCommonContent(feedback)}
             </div>
 
         );
     }
 
-    renderStep1() {
+    renderSubmitComplaint2(){
+        let feedback = {
+            objectName : this.complaint.nickName,
+            status : "发起投诉",
+            dateTime: this.complaint.dateTime,
+            feedBackContent : `${this.complaint.nickName} 发起投诉`
+        }
+
+        return this.renderCommonContent(feedback);
+    }
+
+    renderAddInfomation(feedback, isLast) {
+        let _renderButton = ()=>{
+            if (isLast){
+                return (
+                    <div>
+                        <WhiteSpace size="lg"/>
+                        <Button type="primary"
+                                inline
+                                style={{ marginRight: '4px'}}
+                                size="small"
+                                onClick={this.showModal('addInfoModel')
+                                }>
+                            立即补充资料
+                        </Button>
+                    </div>
+                )
+            }
+            else {
+                return null;
+            }
+        }
+        return(
+            <div>
+                {this.renderCommonContent(feedback)}
+                {
+                    _renderButton()
+                }
+
+            </div>
+        )
+    }
+
+    renderExaminationPassed(feedback, isLast){
         return (
             <div>
-                <TimeLineHeader
-                    name="微投诉服务小秘书"
-                    action="审核通过"
-                    date="2018-03-07 15:06:00"
-                />
+                {this.renderCommonContent(feedback)}
             </div>
-
-        );
+        )
     }
 
-    renderStep2(status) {
-        const _render = (action, date, detail)=>{
-            return (
-                <div>
-                    <TimeLineHeader
-                        name="微投诉服务小秘书"
-                        action={action}
-                        date={date}
-                    />
-                    <div style={{fontSize:'14px', color:'#878787'}}>
-                        {detail}
+    renderSellerProcessing(feedback, isLast){
+        return (
+            <div>
+                {this.renderCommonContent(feedback)}
+            </div>
+        )
+    }
+
+    renderSellerReply(feedback, isLast){
+        let _renderButton = ()=>{
+            if (isLast){
+                return (
+                    <div>
+                        <WhiteSpace size="lg"/>
+                        <Button type="primary"
+                                inline
+                                style={{ marginRight: '4px'}}
+                                size="small"
+                                onClick={(e)=>{
+                                    this.context.router.history.push(
+                                        {
+                                            pathname:"/evaluate",
+                                            search: 'complaintNo=' + this.complaint.complainNo + "&nickName=" + this.complaint.nickName
+                                        }
+                                    )
+                                }}
+                        >评价处理结果</Button>
+                        <Button type="primary"
+                                inline
+                                style={{ marginRight: '4px'}}
+                                size="small"
+                                onClick={this.showModal('addInfoModel')
+                                }>
+                            继续投诉</Button>
                     </div>
-
-                </div>
-            )
-        }
-        if(status==='done') {
-            return (
-                _render('商家处理中', '2018-03-07 15:06:00', '已分配给商家: 康佳售后服务中心')
-            );
-        }
-        else if(status === 'need_info'){
-            return (
-                <div>
-                    {_render('用户补充资料', '2018-03-07 15:06:00', '资料不完整, 请补充购买凭据后再提交')}
-                    <WhiteSpace size="lg"/>
-                    <Button type="primary"
-                            inline
-                            style={{ marginRight: '4px'}}
-                            size="small"
-                            onClick={this.showModal('addInfoModel')
-                            }>
-                        立即补充资料
-                    </Button>
-                </div>
-            )
+                )
+            }
+            else {
+                return null;
+            }
         }
 
+        return (
+            <div>
+                {this.renderCommonContent(feedback)}
+                {
+                    _renderButton()
+                }
+            </div>
+        )
     }
 
+    renderAdditionalComplaint(feedback, isLast){
+        return (
+            <div>
+                {this.renderCommonContent(feedback)}
+            </div>
+        )
+    }
 
-    renderStep3(status) {
+    renderFinished(feedback){
 
-        const _render = ()=>{
-            return (
-                <div>
-                    <TimeLineHeader
-                        name="康佳公司"
-                        action="商家回复"
-                        date="2018-03-07 15:06:00"
-                    />
-                    <div style={{fontSize:'14px', color:'#878787'}}>
-                        这是商家售后反馈这是商家售后反馈这是商家售后反馈这是商家售后反馈这是商家售后反馈这是商家售后反馈这是商家售后反馈这是商家售后反馈这是商家售后反馈这是商家售后反馈
+        let _renderFeedbackScore = () => {
+            if (feedback.feedBackScore){
+                return (
+                    <div>
+                        <WhiteSpace/>
+                        <Flex>
+                            <div style={{flex:'1'}}>服务态度:</div>
+                            <div style={{flex:'3'}}>
+                                <ReactStars count={5}
+                                            value={3}
+                                            color2={'#ff8f33'}
+                                            edit={false}/>
+                            </div>
+                        </Flex>
+                        <Flex>
+                            <div style={{flex:'1'}}>处理态度:</div>
+                            <div style={{flex:'3'}}>
+                                <ReactStars count={5}
+                                            value={3}
+                                            color2={'#ff8f33'}
+                                            edit={false}/>
+                            </div>
+                        </Flex>
+                        <Flex>
+                            <div style={{flex:'1'}}>满意度:</div>
+                            <div style={{flex:'3'}}>
+                                <ReactStars count={5}
+                                            value={3}
+                                            color2={'#ff8f33'}
+                                            edit={false}/>
+                            </div>
+                        </Flex>
                     </div>
-
-                </div>
-            )
+                )
+            }
+            else {
+                return null;
+            }
         }
 
-        if(status === 'done') {
-            return(
-                _render()
-            )
-        }
-        else if(status==='need_rating'){
-            return (
-                <div>
-                    {_render()}
-                    <WhiteSpace size="lg"/>
-                    <Button type="primary"
-                            inline
-                            style={{ marginRight: '4px'}}
-                            size="small"
-                            onClick={(e)=>{
-                                this.context.router.history.push(
-                                    {
-                                        pathname:"/evaluate",
-                                        search: ''
-                                    }
-                                )
-                            }}
-                    >评价处理结果</Button>
-                </div>
-            )
-        }
+        return (
+            <div>
+                {this.renderCommonContent(feedback)}
+                {
+                    _renderFeedbackScore()
+                }
+
+            </div>
+        )
     }
 
-    renderStep4(status) {
-        if(status === 'done'){
-            return(
-                <div>
-                    <TimeLineHeader
-                        name="你的名字"
-                        action="回复确认"
-                        date="2018-03-07 15:06:00"
-                    />
-                    <div style={{fontSize:'14px', color:'#878787'}}>
-                        已解决问题, 辛苦你们了
-                    </div>
 
-                    <WhiteSpace/>
-                    <Flex>
-                        <div style={{flex:'1'}}>服务态度:</div>
-                        <div style={{flex:'3'}}>
-                            <ReactStars count={5}
-                                        value={3}
-                                        color2={'#ff8f33'}
-                                        edit={false}/>
-                        </div>
-                    </Flex>
-                    <Flex>
-                        <div style={{flex:'1'}}>处理态度:</div>
-                        <div style={{flex:'3'}}>
-                            <ReactStars count={5}
-                                        value={3}
-                                        color2={'#ff8f33'}
-                                        edit={false}/>
-                        </div>
-                    </Flex>
-                    <Flex>
-                        <div style={{flex:'1'}}>满意度:</div>
-                        <div style={{flex:'3'}}>
-                            <ReactStars count={5}
-                                        value={3}
-                                        color2={'#ff8f33'}
-                                        edit={false}/>
-                        </div>
-                    </Flex>
-                </div>
-            )
+
+    renderFeedback(feedback, isLast) {
+        switch(feedback.status) {
+            case '发起投诉':
+                return this.renderSubmitComplaint(feedback)
+                break;
+            case '补充资料':
+                return this.renderAddInfomation(feedback)
+                break;
+            case '审核通过':
+                return this.renderExaminationPassed(feedback)
+                break;
+            case '商家处理中':
+                return this.renderSellerProcessing(feedback, isLast)
+                break;
+            case  '商家回复':
+                return this.renderSellerReply(feedback, isLast)
+                break;
+            case '补充投诉':
+                return this.renderAdditionalComplaint(feedback, isLast)
+                break;
+            case '确认完成并评价':
+                return this.renderFinished(feedback)
+                break;
+            default:
+                return this.renderCommonContent(feedback)
         }
     }
-
 
     render() {
+
 
         if(!this.state.feedBacks){
             return (
                 <Loading/>
             )
         }
+        if(this.state.feedBacks.length==0) {
+            return null;
+        }
 
+        if(this.state.feedBacks[0].status !== '发起投诉'){
+            this.state.feedBacks = [{
+                objectName : this.complaint.nickName,
+                status : "发起投诉",
+                dateTime: this.complaint.dateTime,
+                feedBackContent : `${this.complaint.nickName} 发起投诉`,
+                objectIcon : this.complaint.avatarUrl
+            }, ...this.state.feedBacks];
+        }
+        let lastIndex = this.state.feedBacks.length-1;
 
         return (
+
+
+
 
         <div class='process'>
             <Card full>
@@ -278,30 +355,11 @@ class Process extends Component {
                 <hr/>
                 <Card.Body style={{wordWrap:'break-word'}}>
                     <Timeline>
+
                         {
-                            this.renderTimeLineItem(true,
-                                "./img/avatar.jpg",
-                                this.renderStep0.bind(this)
-                            )
-                        }
-                        {this.renderTimeLineItem(true,
-                            "./img/avatar.jpg",
-                            this.renderStep1.bind(this)
-                        )}
-                        {this.renderTimeLineItem(true,
-                            './img/avatar.jpg',
-                            this.renderStep2.bind(this),
-                            'need_info')
-                        }
-                        {this.renderTimeLineItem(true,
-                            './img/avatar.jpg',
-                            this.renderStep3.bind(this),
-                            'need_rating')
-                        }
-                        {this.renderTimeLineItem(true,
-                            './img/avatar.jpg',
-                            this.renderStep4.bind(this),
-                            'done')
+                            this.state.feedBacks.map((el, index)=>{
+                                return this.renderTimeLineItem(true, IMAGE_URL(el.objectIcon), el, index===lastIndex);
+                            })
                         }
 
                     </Timeline>

@@ -114,3 +114,7 @@
 .am-button-primary {
   border-radius: 0
 }
+
+.am-list-view-scrollview {
+    width: 100%;
+}

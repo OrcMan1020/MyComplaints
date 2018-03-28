@@ -135,7 +135,7 @@ class Home extends Component {
                 ref={el => this.lv = el}
                 dataSource={this.state.dataSource}
                 renderFooter={() => (<div style={{ padding: 0, textAlign: 'center'/*,  backgroundColor: '#F5F5F9'*/}}>
-                    {this.state.isLoading ? <Loading/> : '到底啦!'}
+                    {this.state.isLoading ? <Loading/> : (!this.state.hasMore?'到底啦!':"")}
                 </div>)}
                 renderRow={row}
                 renderSeparator={separator}
@@ -193,35 +193,15 @@ class Home extends Component {
 
                 </div>
 
-                <div className="mytabs">
-                    <Tabs tabs={tabs}
-                          initialPage={this.state.initialPage}
-                          onChange={(tab, index) => { console.log('onChange', index, tab);}}
-                          onTabClick={(tab, index) => { window.initialPage = index; console.log('onTabClick', index, tab); this.init() }}
-                          tabBarInactiveTextColor = '#bbb'
-                          tabBarActiveTextColor="#6c72ff"
-                          swipeable={false}
+                <div className="mytabs" style={{paddingTop:'8px'}}>
 
-                    >
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff'}}>
+                        {this.renderList()}
+
+                    </div>
 
 
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff'}}>
-                            {this.renderList()}
 
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff'}}>
-                            {this.renderList()}
-
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff'}}>
-                            {this.renderList()}
-
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff'}}>
-                            {this.renderList()}
-
-                        </div>
-                    </Tabs>
                 </div>
             </div>
 
