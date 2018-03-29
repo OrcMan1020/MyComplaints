@@ -52,21 +52,22 @@ class Evaluate extends Component {
         SubmitComplainFeedBack({
             complainNo : this.complaintNo,
             objectName : this.nickName,
-            status : this.refs.comment.state.value || "",
-            feedBackScore : {
+            status : "确认完成并评价",
+            feedBackScore : JSON.stringify({
                 service : this.state.rate1,
                 speed : this.state.rate2,
                 satis : this.state.rate3
-            }
+            }),
+            feedBackContent: this.refs.comment.state.value || ""
         })
             .then(res=>{
                 Toast.success("提交评价成功!", 2, ()=>{
-                    //this.goBack();
+                    this.goBack();
                     //this.context.router.
                 })
             })
             .catch(e=>{
-                Toast.fail("提交评价失败!", 2);
+                Toast.fail("提交评价失败!"+e, 2);
             })
     }
 
@@ -163,7 +164,7 @@ class Evaluate extends Component {
                     <WingBlank size="lg"/>
                     <Button className="btn" type="primary"
                             onClick={(e)=>{
-
+                                this.submitComplainFeedBack()
                             }}
                     >提交评价</Button>
                 </div>

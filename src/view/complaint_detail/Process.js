@@ -3,11 +3,11 @@
  */
 import React, { Component } from 'react';
 import { Card, WhiteSpace, Flex, Button, Modal, List, TextareaItem, ImagePicker,
-    Checkbox, WingBlank} from 'antd-mobile';
+    Checkbox, WingBlank, Toast, Grid} from 'antd-mobile';
 import {Timeline, TimelineEvent} from 'react-event-timeline'
 import ReactStars from 'react-stars';
 import {Loading} from '../Loading';
-import {GetComplainFeedBacks, IMAGE_URL} from '../../utils/APIs';
+import {GetComplainFeedBacks, IMAGE_URL, UploadFiles, SubmitComplainFeedBack} from '../../utils/APIs';
 
 const AgreeItem = Checkbox.AgreeItem;
 
@@ -49,6 +49,10 @@ class Process extends Component {
     }
 
     componentDidMount() {
+        this.refresh();
+    }
+
+    refresh() {
         GetComplainFeedBacks(this.complaint.complainNo)
             .then(res=>{
                 let res2 = res.sort((el1, el2)=> {
@@ -58,7 +62,12 @@ class Process extends Component {
                     el.feedBackContent = el.feedBackContent || "无内容"
                 })
                 this.setState({
-                    feedBacks : res2
+                    feedBacks : res2,
+                    addInfoModel: false,
+                    files : [],
+                    enableSubmit: false,
+
+
                 })
             })
     }
@@ -98,6 +107,15 @@ class Process extends Component {
 
 
     renderCommonContent(feedback) {
+        let evidences = feedback.evidences || "";
+
+        let icons = [];
+        if (evidences.length>0){
+            const evidencesx = evidences.split(",");
+            icons = evidencesx.map(el=>{
+                return {icon : IMAGE_URL(el)}
+            });
+        }
         return (
             <div>
                 <TimeLineHeader
@@ -108,6 +126,26 @@ class Process extends Component {
                 <div style={{fontSize:'14px', color:'#878787'}}>
                     {feedback.feedBackContent}
                 </div>
+                {
+                    icons.length==0? null : (
+                        <div>
+                            <WhiteSpace size="lg"/>
+                            <Grid data={icons}
+                                  hasLine={false}
+                                  columnNum={4}
+                                  activeStyle={false}
+                                  renderItem={dataItem => (
+                                      <div style={{paddingLeft:'4px', paddingRight:'4px'}}>
+                                          <img src={dataItem.icon} style={{ width: '100%', height: '100%'}} alt=""
+                                               onClick={(e)=>console.log(dataItem.icon)}/>
+                                      </div>
+                                  )}
+                            />
+                        </div>
+                    )
+                }
+
+
             </div>
         )
     }
@@ -132,7 +170,7 @@ class Process extends Component {
         return this.renderCommonContent(feedback);
     }
 
-    renderAddInfomation(feedback, isLast) {
+    renderAddInformation(feedback, isLast) {
         let _renderButton = ()=>{
             if (isLast){
                 return (
@@ -233,7 +271,8 @@ class Process extends Component {
     }
 
     renderFinished(feedback){
-
+        let feedBackScore = feedback.feedBackScore || "{}";
+        feedBackScore = JSON.parse(feedBackScore);
         let _renderFeedbackScore = () => {
             if (feedback.feedBackScore){
                 return (
@@ -243,7 +282,7 @@ class Process extends Component {
                             <div style={{flex:'1'}}>服务态度:</div>
                             <div style={{flex:'3'}}>
                                 <ReactStars count={5}
-                                            value={3}
+                                            value={feedBackScore.service}
                                             color2={'#ff8f33'}
                                             edit={false}/>
                             </div>
@@ -252,7 +291,7 @@ class Process extends Component {
                             <div style={{flex:'1'}}>处理态度:</div>
                             <div style={{flex:'3'}}>
                                 <ReactStars count={5}
-                                            value={3}
+                                            value={feedBackScore.speed}
                                             color2={'#ff8f33'}
                                             edit={false}/>
                             </div>
@@ -261,7 +300,7 @@ class Process extends Component {
                             <div style={{flex:'1'}}>满意度:</div>
                             <div style={{flex:'3'}}>
                                 <ReactStars count={5}
-                                            value={3}
+                                            value={feedBackScore.satis}
                                             color2={'#ff8f33'}
                                             edit={false}/>
                             </div>
@@ -293,7 +332,7 @@ class Process extends Component {
                 return this.renderSubmitComplaint(feedback)
                 break;
             case '补充资料':
-                return this.renderAddInfomation(feedback)
+                return this.renderAddInformation(feedback, isLast)
                 break;
             case '审核通过':
                 return this.renderExaminationPassed(feedback)
@@ -312,6 +351,7 @@ class Process extends Component {
                 break;
             default:
                 return this.renderCommonContent(feedback)
+
         }
     }
 
@@ -401,6 +441,7 @@ class Process extends Component {
                         </div>
                         <TextareaItem
                             rows={5}
+                            ref="additionalInfo"
                         />
                     </List.Item>
                     <List.Item>
@@ -438,7 +479,7 @@ class Process extends Component {
                         <WingBlank size="lg"/>
                         <Button className="btn" type="primary"
                                 disabled={!this.state.enableSubmit}
-                                onClick={(e)=>{}}
+                                onClick={this.uploadAdditionalComplaint.bind(this)}
                         >提交</Button>
                     </div>
 
@@ -447,6 +488,47 @@ class Process extends Component {
 
             </Modal>
         )
+    }
+
+    uploadAdditionalComplaint() {
+        let additionalInfo = this.refs.additionalInfo.state.value;
+        let complaintNo = this.complaint.complainNo;
+        let nickName = this.complaint.nickName;
+        console.log(additionalInfo);
+        console.log(this.state.files);
+
+        let fileInfo = this.state.files.map(file=>{
+            return {
+                file : file,
+                type : null
+            }
+        })
+
+        UploadFiles(fileInfo)
+            .then(results => {
+                let fileNames = results || []
+                return SubmitComplainFeedBack({
+                    complainNo : complaintNo,
+                    objectName : nickName,
+                    status : "补充投诉",
+                    evidences : fileNames.join(","),
+                    feedBackContent: additionalInfo,
+
+                })
+            })
+
+
+            .then(res=>{
+                Toast.success("提交补充投诉成功!", 2, ()=>{
+                    //this.goBack();
+                    //this.context.router.
+                    this.refresh();
+                })
+            })
+            .catch(e=>{
+                Toast.fail("提交补充投诉失败!"+e, 2);
+            })
+
     }
 
 }

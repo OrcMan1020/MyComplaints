@@ -39,8 +39,10 @@ class InfoCard extends Component {
           <div class="info-card" id={unionId}
                complainNo={complainNo}
                openId={openId}
-               onClick={()=>{
+               onClick={(e)=>{
 
+                   window.current_complaints =  window.current_complaints || {};
+                   window.current_complaints.scrollY = window.scrollY;
               this.context.router.history.push(
                   {
                       pathname:"/complaint-detail",

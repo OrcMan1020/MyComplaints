@@ -34,11 +34,29 @@ class Home extends Component {
             rowHasChanged: (row1, row2) => row1 !== row2,
         });
 
+        this.rData = []
+        if(window.current_complaints) {
+            this.rData = this.rData.concat(window.current_complaints.rData);
+            this.currentPage = window.current_complaints.currentPage;
+            this.scrollY = window.current_complaints.scrollY;
+            this.totalPages = window.current_complaints.totalPages;
+
+        }
+        else {
+            this.rData = []
+            this.currentPage = 0
+            this.scrollY = 0
+            this.totalPages = 0
+        }
+        // TODO
+        // we need to store these data!!!
+        this.pageSize = 5
+        this.searchKey = ""
+
         this.state = {
             // imgHeight: 176,
             slideIndex: 0,
             initialPage: window.initialPage || 0,
-            data: [],
             dataSource: this.dataSource
         };
 
@@ -46,29 +64,44 @@ class Home extends Component {
 
     componentDidMount() {
         this.init()
+        // setTimeout(()=>{
+        //     console.log("scroll to " + this.scrollY)
+        //     window.scrollTo(0, this.scrollY)
+        // },1000)
     }
 
     componentWillUnmount(){
-        //window.scrollTo(0,0)
+        window.scrollTo(0,0)
+        window.current_complaints = window.current_complaints || {};
+        window.current_complaints.rData = this.rData;
+        window.current_complaints.currentPage = this.currentPage;
+        window.current_complaints.totalPages = this.totalPages;
+        window.current_complaints.hasMore = this.state.hasMore;
         // this.onRefresh = null;
+    }
+    componentDidUpdate() {
+
+
     }
 
     init(){
+        if(this.rData.length===0){
+            this.setState({
+                isLoading : true,
+                hasMore: false,
+                dataSource: this.state.dataSource.cloneWithRows(this.rData)
+            })
+            this.fetchData()
+        }
+        else {
+            this.setState({
+                isLoading : false,
+                hasMore: window.current_complaints.hasMore,
+                dataSource: this.state.dataSource.cloneWithRows(this.rData)
+            })
+            // this.fetchData()
+        }
 
-        this.currentPage = 0
-        this.pageSize = 5
-        this.totalPages = 0
-        this.rData = []
-        this.searchKey = ""
-
-        this.setState({
-
-            isLoading : true,
-            hasMore: false,
-            dataSource: this.state.dataSource.cloneWithRows(this.rData)
-        })
-
-        this.fetchData()
     }
 
 
@@ -97,6 +130,9 @@ class Home extends Component {
                     })
                 }
 
+            })
+            .catch(e=>{
+                Toast.fail("获取投诉列表失败! " + e)
             })
     }
 
@@ -173,6 +209,11 @@ class Home extends Component {
     render() {
         if(this.props.refresh){
             this.props.refresh = false
+            this.currentPage = 0
+            this.pageSize = 5
+            this.totalPages = 0
+            this.rData = []
+            this.searchKey = ""
             this.init();
         }
         return (
@@ -196,7 +237,7 @@ class Home extends Component {
                             style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
                         >
                             <img
-                                src={`./img/2.png`}
+                                src={`./img/icon/banner.jpg`}
                                 alt=""
                                 style={{ width: '100%', verticalAlign: 'top', height:'100%' }}
                                 onLoad={() => {

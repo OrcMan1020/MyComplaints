@@ -81,6 +81,7 @@ class AddComplaint extends Component {
                     dateTime: monent(new Date()).format("YYYY-MM-DD HH:mm:ss"),
                     complainIssue : this.getComplaintIssue(),
                     requestAmount : this.getRequest(),
+                    request : this.getRequest(),
                     detailContent : this.getDetailContent(),
                     mobile : this.getMobile(),
                     evidences : results.filter(el=>{

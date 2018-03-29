@@ -73,6 +73,19 @@ const UploadFile = (file, type) => {
 
 };
 
+const UploadFiles = (filesInfo) => {
+    let promises = [];
+    filesInfo.forEach(el=>{
+        let file = el.file.file;
+        let type = el.type;
+        promises.push(
+            UploadFile(file, type)
+        );
+    });
+    return Promise.all(promises);
+}
+
+
 const SubmitComplaint = complaint => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -87,11 +100,13 @@ const SubmitComplaint = complaint => {
 };
 
 const SubmitComplainFeedBack = feedback => {
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Accept", "application/json");
+
     return fetchData(fetch(URL("comaplainFeedBack") , {
         method: 'POST',
-        headers: {
-            Accept: 'application/json',
-        },
+        headers:myHeaders,
         credentials: isTesting?"":'include',
         body: JSON.stringify(feedback)
     }));
@@ -177,6 +192,7 @@ const GetHottestComplains = (page, size, searchKey) => {
 
 export {
     UploadFile,
+    UploadFiles,
     SubmitComplaint,
     SubmitComplainFeedBack,
     GetJSSDKConfig,
