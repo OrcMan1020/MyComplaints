@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import qs from 'query-string';
-import {TabBar, Carousel, Icon, SearchBar, Tabs, WhiteSpace, WingBlank, List, ListView, PullToRefresh} from 'antd-mobile';
+import {TabBar, Carousel, Icon, SearchBar, Tabs, WhiteSpace, WingBlank, List, ListView, PullToRefresh, Toast} from 'antd-mobile';
 import LineCrossText from '../../component/LineCrossText/'
 import {Loading} from '../Loading';
 import fetch from 'unfetch';
@@ -50,6 +50,7 @@ class Home extends Component {
 
     componentWillUnmount(){
         //window.scrollTo(0,0)
+        // this.onRefresh = null;
     }
 
     init(){
@@ -136,13 +137,14 @@ class Home extends Component {
                 ref={el => this.lv = el}
                 dataSource={this.state.dataSource}
                 renderRow={row}
+                renderFooter={this.renderFooter}
                 renderSeparator={separator}
                 className="am-list"
                 pageSize={4}
                 useBodyScroll
                 pullToRefresh={<PullToRefresh
                     refreshing={this.state.isLoading}
-                    onRefresh={this.onRefresh}
+                    onRefresh={this.onRefresh.bind(this)}
                     direction={'up'}
                     distanceToRefresh={30}
                 />}
@@ -150,9 +152,19 @@ class Home extends Component {
         )
     }
     onRefresh = () => {
+
+        if(!this.props.enablePullRefresh){
+            return;
+        }
+
+        if(!this.state.hasMore){
+            Toast.info("到底啦!", 1)
+        }
+
         if (this.state.isLoading || !this.state.hasMore) {
             return;
         }
+        this.renderFooter = null;
         this.setState({isLoading: true });
         // simulate initial Ajax
         this.fetchData();

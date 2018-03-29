@@ -60,7 +60,7 @@ class MainLayout extends Component {
             selectedTab: window.selectedTab,
             hidden: false,
             fullScreen: false,
-            navBarTitle : ''
+            navBarTitle : '',
         };
 
 
@@ -73,7 +73,7 @@ class MainLayout extends Component {
         window.scrollTo(0,0)
         this.setState({
                 selectedTab : selectedTab,
-                refresh : refresh
+                refresh : refresh,
             }
         );
     }
@@ -116,7 +116,10 @@ class MainLayout extends Component {
                                 this.goToTab('home')
                             }}
                         >
-                            <Home refresh={this.state.refresh}></Home>
+                            <Home
+                                refresh={this.state.refresh}
+                                enablePullRefresh={this.state.selectedTab === 'home'}
+                            />
                         </TabBar.Item>
 
 
@@ -131,7 +134,7 @@ class MainLayout extends Component {
                                 this.goToTab('complaint')
                             }}
                         >
-							<AddComplaint goToTab={this.goToTab.bind(this)}></AddComplaint>
+							<AddComplaint goToTab={this.goToTab.bind(this)}/>
                         </TabBar.Item>
 
 
@@ -145,7 +148,7 @@ class MainLayout extends Component {
                                 this.goToTab('mine')
                             }}
                         >
-                            <Mine></Mine>
+                            <Mine/>
                         </TabBar.Item>
 
                     </TabBar>
