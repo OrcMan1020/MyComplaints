@@ -157,6 +157,22 @@ const ShareQZone = (title, desc, link, imgUrl) => {
 
 }
 
+const RegisterShareData = (shareData) => {
+    const wx = WX();
+    //alert()
+    if(wx === null) {
+        return ;
+    }
+    wx.onMenuShareAppMessage(shareData);
+    wx.onMenuShareTimeline(shareData);
+    wx.onMenuShareQQ(shareData);
+    wx.onMenuShareWeibo(shareData);
+}
+
+const UnregisterShareData = () => {
+    return RegisterShareData(null)
+}
+
 
 export  {
     ShareTimeline,
@@ -164,5 +180,7 @@ export  {
     ShareQQ,
     ShareQZone,
     ShareWeibo,
-    ShareUrl
+    ShareUrl,
+    RegisterShareData,
+    UnregisterShareData
 }

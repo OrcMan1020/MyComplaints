@@ -9,7 +9,7 @@ import LineCrossText from '../../component/LineCrossText/'
 
 import {GetComplainItem} from '../../utils/APIs'
 
-import {ShareQQ, ShareTimeline, ShareAppMessage, ShareWeibo, ShareQZone, ShareUrl} from "../../utils/WXShare";
+import {ShareQQ, ShareTimeline, ShareAppMessage, ShareWeibo, ShareQZone, ShareUrl, RegisterShareData, UnregisterShareData} from "../../utils/WXShare";
 
 import '../../style/navbar.css'
 
@@ -36,7 +36,9 @@ class ComplaintDetail extends Component {
 
 
     }
-
+    componentWillUnmount () {
+        UnregisterShareData()
+    }
     componentDidMount() {
         const {location={}} = this.props
         const {search=''} = location
