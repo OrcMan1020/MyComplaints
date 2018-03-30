@@ -9,38 +9,18 @@ import LineCrossText from '../../component/LineCrossText/'
 
 import {GetComplainItem} from '../../utils/APIs'
 
+import {ShareQQ, ShareTimeline, ShareAppMessage, ShareWeibo, ShareQZone, ShareUrl} from "../../utils/WXShare";
+
 import '../../style/navbar.css'
 
 const icons = [
-    {icon : './img/icon/wechat.png'},
-    {icon : './img/icon/weibo.png'},
-    {icon : './img/icon/friend.png'},
-    {icon : './img/icon/qq.png'},
+    {icon : './img/icon/wechat.png', index:0},
+    {icon : './img/icon/weibo.png', index:1},
+    {icon : './img/icon/friend.png', index:2},
+    {icon : './img/icon/qq.png', index:3},
 
 ];
 
-//'onMenuShareTimeline',//分享给好友
-// 'onMenuShareAppMessage',//分享到朋友圈
-//     'onMenuShareQQ', // QQ
-//     'onMenuShareWeibo', //
-//     'onMenuShareQZone', //
-//     'openLocation'
-const wx = window.wx;
-const url = window.location.href;
-const onMenuShareTimeline = e => {
-    wx.onMenuShareTimeline({
-        title: 'from 微投诉', // 分享标题
-        link: url, // 分享链接，该链接域名必须与当前企业的可信域名一致
-        imgUrl: '', // 分享图标
-        success: function () {
-            // 用户确认分享后执行的回调函数
-        },
-        cancel: function () {
-            // 用户取消分享后执行的回调函数
-        }
-    })
-
-}
 
 
 class ComplaintDetail extends Component {
@@ -52,6 +32,8 @@ class ComplaintDetail extends Component {
             complaint : null,
             shareEnable : false
         }
+        this.shareData = {}
+
 
     }
 
@@ -62,6 +44,19 @@ class ComplaintDetail extends Component {
         this.complaintNo = queryObj['complaintNo'] || ''
         GetComplainItem(this.complaintNo)
             .then(res=>{
+
+                const shareData = {
+                    title: '微投诉',
+                    desc: '微投诉投诉单分享',
+                    link: ShareUrl("#/complaint-detail?complaintNo=" + res.complainNo),
+                    imgUrl: "https://weitousuh5.taixintech.com/wetousuPhoto/7f5450cb-c609-4224-aeb8-517e37a225a0."
+                }
+
+                window.wx.onMenuShareAppMessage(shareData);
+                window.wx.onMenuShareTimeline(shareData);
+                window.wx.onMenuShareQQ(shareData);
+                window.wx.onMenuShareWeibo(shareData);
+
                 this.setState({
                     complaint : res
                 });
@@ -104,6 +99,26 @@ class ComplaintDetail extends Component {
 
     }
 
+    _shareComplaint(index) {
+        const url = ShareUrl("complaint-detail?complaintNo=" + this.complaintNo)
+        alert(url)
+        switch (index){
+            case 1: //weibo
+                window.wx.showMenuItems(["menuItem:share:appMessage"])
+                break;
+            case 2: //friend
+                window.wx.showMenuItems(["menuItem:share:timeline"])
+                break;
+            case 3: // QQ
+                window.wx.showMenuItems(["menuItem:share:qq"])
+                break;
+            case 0://wechat
+                window.wx.showMenuItems(["menuItem:share:QZone"])
+            default:
+                break;
+        }
+    }
+
 
 
     renderShareModel() {
@@ -126,6 +141,7 @@ class ComplaintDetail extends Component {
                               <img src={dataItem.icon} style={{ width: '64px', height: '64px' }} alt=""
                                    onClick={(e)=>{
                                        console.log(dataItem.icon)
+                                       this._shareComplaint(dataItem.index)
                                    }}/>
                           </div>
                       )}

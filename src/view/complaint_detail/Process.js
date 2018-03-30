@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import { Card, WhiteSpace, Flex, Button, Modal, List, TextareaItem, ImagePicker,
     Checkbox, WingBlank, Toast, Grid} from 'antd-mobile';
+import moment from "moment";
 import {Timeline, TimelineEvent} from 'react-event-timeline'
 import ReactStars from 'react-stars';
 import {Loading} from '../Loading';
@@ -56,7 +57,8 @@ class Process extends Component {
         GetComplainFeedBacks(this.complaint.complainNo)
             .then(res=>{
                 let res2 = res.sort((el1, el2)=> {
-                    return el1.dateTime.localeCompare(el2)>0;
+                    //return el1.dateTime.localeCompare(el2)>0;
+                    return moment(el1.dateTime).unix()>moment(el2.dateTime).unix()
                 })
                 res2.forEach(el=>{
                     el.feedBackContent = el.feedBackContent || "无内容"
@@ -503,6 +505,8 @@ class Process extends Component {
                 type : null
             }
         })
+
+        Toast.loading('正在提交, 请稍等...', 30, null, true);
 
         UploadFiles(fileInfo)
             .then(results => {

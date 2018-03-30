@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { List, Card, WhiteSpace, WingBlank, InputItem, TextareaItem, Picker, ImagePicker,
      Checkbox, Flex, Button, Toast } from 'antd-mobile';
 import SuccessModel from './SuccessModel';
+import  lrz from 'lrz';
 
 import './AddComplaint.css';
 
@@ -32,7 +33,14 @@ class AddComplaint extends Component {
             files: data,
             secretFiles : secretData,
             enableSubmit: false,
-            successVisible: false
+            successVisible: false,
+
+            objectName: null,
+            complaintIssue: null,
+            request: null,
+            detailContent: null,
+            mobile: null,
+            private: null
         };
 
         console.log(monent(new Date()).format("YYYY-MM-DD HH:mm:ss"))
@@ -43,20 +51,37 @@ class AddComplaint extends Component {
             successVisible: false,
             files : [],
             secretFiles : [],
-            enableSubmit : false
+            enableSubmit : false,
+            objectName: null,
+            complaintIssue: null,
+            request: null,
+            detailContent: null,
+            mobile: null,
+            private: null
         });
         this.props.goToTab('home', true);
     }
 
     onChangeFiles = (filesName)=>{
         return (files, type, index) => {
+
             this.setState({
                 [filesName] : files
             })
         }
     }
-
+    checkValidate() {
+        return this.getMobile() && this.getObjectName() && this.getRequest() && this.getComplaintIssue()
+        && this.getDetailContent()
+    }
     submit() {
+
+        if(!this.checkValidate()) {
+            Toast.fail('投诉资料不完整', 2);
+            return;
+        }
+
+
         console.log(this.state.files);
 
         Toast.loading('正在提交, 请稍等...', 30, null, true);
@@ -108,8 +133,6 @@ class AddComplaint extends Component {
         })
     }
 
-
-
     render() {
         const { files, secretFiles } = this.state;
         // const { getFieldProps } = this.props.form;
@@ -129,6 +152,10 @@ class AddComplaint extends Component {
                         <InputItem
                             placeholder= '(必填) 填写投诉对象'
                             ref="objectName"
+                            value={this.state.objectName}
+                            onChange={v=>this.setState({
+                                objectName : v
+                            })}
                         >投诉对象</InputItem>
 
                         {/*<Picker title="投诉问题">*/}
@@ -139,6 +166,10 @@ class AddComplaint extends Component {
                         <InputItem
                             placeholder= '(必填) 填写投诉问题, 35字以内'
                             ref="complaintIssue"
+                            value={this.state.complaintIssue}
+                            onChange={v=>this.setState({
+                                complaintIssue : v
+                            })}
                             maxLength={35}
                         >投诉问题</InputItem>
 
@@ -146,18 +177,29 @@ class AddComplaint extends Component {
                             placeholder= '(必填) 填写投诉要求, 35字以内'
                             ref="request"
                             maxLength={35}
+                            value={this.state.request}
+                            onChange={v=>this.setState({
+                                request : v
+                            })}
                         >投诉诉求</InputItem>
                         <TextareaItem
                             title="投诉详情"
                             placeholder="(必填) 请完整描述投诉事件"
                             rows="5"
                             ref="detailContent"
+                            value={this.state.detailContent}
+                            onChange={v=>this.setState({
+                                detailContent : v
+                            })}
                         />
                         <InputItem
                             placeholder= '(必填) 填写个人手机号'
                             type="phone"
                             ref="mobile"
-
+                            value={this.state.mobile}
+                            onChange={v=>this.setState({
+                                mobile : v
+                            })}
                         >联系电话</InputItem>
                     </List>
 
@@ -168,6 +210,10 @@ class AddComplaint extends Component {
                         <InputItem
                             placeholder= '例如银行账号, 快递单号'
                             ref="private"
+                            value={this.state.private}
+                            onChange={v=>this.setState({
+                                private : v
+                            })}
                         >隐藏内容</InputItem>
 
 
@@ -183,6 +229,7 @@ class AddComplaint extends Component {
                                 onChange={this.onChangeFiles('files')}
                                 onImageClick={(index, fs) => console.log(index, fs)}
                                 selectable={files.length <= 10}
+
                             />
 
 
@@ -199,6 +246,7 @@ class AddComplaint extends Component {
                                 onChange={this.onChangeFiles('secretFiles')}
                                 onImageClick={(index, fs) => console.log(index, fs)}
                                 selectable={secretFiles.length <= 10}
+
                             />
 
 
@@ -273,6 +321,29 @@ class AddComplaint extends Component {
 
     getDetailContent() {
        return this.refs.detailContent.state.value;
+    }
+
+    clear() {
+        this.refs.objectName.setState({
+            value : null
+        })
+        this.refs.complaintIssue.setState({
+            value : null
+        })
+        this.refs.request.setState({
+            value : null
+        })
+        this.refs.mobile.setState({
+            value : null
+        })
+        this.refs.private.setState({
+            value : null
+        })
+        this.refs.detailContent.setState({
+            value : null
+        })
+
+
     }
 
     ////////////////////////////////////////////////////

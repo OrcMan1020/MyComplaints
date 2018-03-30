@@ -34,7 +34,8 @@ GetJSSDKConfig(url) //TODO
                 'onMenuShareWeibo', //
                 'onMenuShareQZone', //
                 'openLocation',
-                'chooseImage'
+                'chooseImage',
+                "showMenuItems"
             ]
         });
         window.wx.error(function(res){
@@ -54,7 +55,7 @@ GetJSSDKConfig(url) //TODO
                     'chooseImage'
                 ],
                 success: function (res) {
-                    //alert(JSON.stringify(res));
+                    // alert(JSON.stringify(res));
                     window.wx.readyState = true;
                 }
             });

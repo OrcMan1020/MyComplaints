@@ -46,7 +46,7 @@ class MainLayout extends Component {
 
     componentDidMount() {
         // cookie.save('unionid', 1)
-        console.log(cookie.load('unionid'));
+        console.log(cookie.load('unionId'));
     }
 
 
@@ -54,7 +54,7 @@ class MainLayout extends Component {
         super(props);
 
         let search = qs.parse(window.location.search);
-        window.selectedTab = search['selected'] || window.selectedTab || 'home';
+        window.selectedTab = window.selectedTab || search['selected'] ||  'home';
 
         this.state = {
             selectedTab: window.selectedTab,
@@ -65,6 +65,10 @@ class MainLayout extends Component {
 
 
 
+    }
+
+    componentWillUnmount() {
+        window.scrollTo(0, 0)
     }
 
 

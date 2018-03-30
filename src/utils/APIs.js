@@ -2,6 +2,7 @@
  * Created by saix on 2018/3/22.
  */
 import ImageCompressor from 'image-compressor.js';
+import  lrz from 'lrz';
 
 const TEST = "test";
 const API_CONFIG = ` https://weitousuh5.taixintech.com/wetousubackendV1/api/`;
@@ -47,25 +48,22 @@ const fetchData = (fetchPromise,  json=true)=> {
 const UploadFile = (file, type) => {
 
     return new Promise((resolve, reject)=>{
-        new ImageCompressor(file, {
-            quality: .6,
-            success(result) {
-                resolve(result);
-            },
-            error(e) {
+        lrz(file)
+            .then(rst=>{
+                resolve(rst);
+            })
+            .catch(e=>{
                 reject(e);
-                console.log(e.message);
-            },
-        });
+            })
     }).then(result=>{
         const formData = new FormData();
-        formData.append('file', result);
+        formData.append('file', result.file);
         return fetchData(fetch(URL("uploadFile?type="+(type && type.length>0?type : "")) , {
             method: 'POST',
             headers: {
             },
             credentials: isTesting?"":'include',
-            body: formData
+            body: result.formData
         }), false);
     });
 
