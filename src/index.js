@@ -4,7 +4,8 @@ import { HashRouter as Router} from 'react-router-dom'
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import {GetJSSDKConfig}  from './utils/APIs';
+import {GetJSSDKConfig, GetUserInfoById}  from './utils/APIs';
+import {Toast} from "antd-mobile";
 
 import qs from 'query-string';
 import cookie from 'react-cookies'
@@ -63,7 +64,19 @@ GetJSSDKConfig(url) //TODO
         });
     })
 
-ReactDOM.render(<Router><App/></Router>, document.getElementById('root'));
+
+Toast.loading("正在登录, 请稍等", 60);
+GetUserInfoById(1).then(userInfo=>{
+    Toast.hide();
+    window.localStorage.setItem("unionId", userInfo.unionId || "oqzX704sS2T9xSNF54SsI_NErdlo");
+    ReactDOM.render(<Router><App/></Router>, document.getElementById('root'));
+
+}).catch(e =>{
+    Toast.hide();
+    Toast.fail("登录失败!!")
+})
+
+
 registerServiceWorker();
 
 

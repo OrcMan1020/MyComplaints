@@ -154,6 +154,17 @@ const GetUserInfo = unionId => {
     }));
 };
 
+const GetUserInfoById = id => {
+    return fetchData(fetch(URL("getUserInfoById?id=" + id) , {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+        },
+        credentials: isTesting?"":'include',
+
+    }));
+}
+
 const SetUserInfo = userInfo => {
     return fetchData(fetch(URL("user") , {
         method: 'POST',
@@ -200,4 +211,5 @@ export {
     GetUserInfo,
     GetHottestComplains,
     IMAGE_URL,
+    GetUserInfoById,
 }
