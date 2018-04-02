@@ -189,7 +189,7 @@ const GetJSSDKConfig = url => {
 };
 
 const GetHottestComplains = (page, size, searchKey) => {
-    return fetchData(fetch(URL(`getHottestComplains?page=${page}&size=${size}&search=${searchKey}`) , {
+    return fetchData(fetch(URL(`getHottestComplains?page=${page}&size=${size}&searchKey=${searchKey}`) , {
         method: 'GET',
         headers: {
             Accept: 'application/json',

@@ -13,11 +13,12 @@ import cookie from 'react-cookies'
 
 let url = window.location.href.split('#')[0];
 let search = qs.parse(window.location.search);
-let openId = search["openId"] || "123456";
-let unionId = cookie.load("unionId") || "oqzX704sS2T9xSNF54SsI_NErdlo";
+// let openId = search["openId"] || "123456";
+let id = search["id"] || 1;
+// let unionId = cookie.load("unionId") || "oqzX704sS2T9xSNF54SsI_NErdlo";
 // using 123456 as open id for testing
-window.localStorage.setItem("openId", openId||"123456");
-window.localStorage.setItem("unionId", unionId);
+// window.localStorage.setItem("openId", openId||"123456");
+// window.localStorage.setItem("unionId", unionId);
 
 GetJSSDKConfig(url) //TODO
     .then(data => {
@@ -66,7 +67,7 @@ GetJSSDKConfig(url) //TODO
 
 
 Toast.loading("正在登录, 请稍等", 60);
-GetUserInfoById(1).then(userInfo=>{
+GetUserInfoById(id).then(userInfo=>{
     Toast.hide();
     window.localStorage.setItem("unionId", userInfo.unionId || "oqzX704sS2T9xSNF54SsI_NErdlo");
     ReactDOM.render(<Router><App/></Router>, document.getElementById('root'));

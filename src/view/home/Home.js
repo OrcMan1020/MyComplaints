@@ -70,6 +70,21 @@ class Home extends Component {
         // },1000)
     }
 
+    clearData() {
+        this.rData = []
+        this.currentPage = 0
+        this.scrollY = 0
+        this.totalPages = 0
+        this.state.hasMore = true;
+
+        window.current_complaints = {};
+        // window.current_complaints.rData = this.rData;
+        // window.current_complaints.currentPage = this.currentPage;
+        // window.current_complaints.totalPages = this.totalPages;
+        // window.current_complaints.hasMore = this.state.hasMore;
+
+    }
+
     componentWillUnmount(){
         window.scrollTo(0,0)
         window.current_complaints = window.current_complaints || {};
@@ -77,6 +92,7 @@ class Home extends Component {
         window.current_complaints.currentPage = this.currentPage;
         window.current_complaints.totalPages = this.totalPages;
         window.current_complaints.hasMore = this.state.hasMore;
+        window.current_complaints.searchKey = this.searchKey;
         // this.onRefresh = null;
     }
     componentDidUpdate() {
@@ -88,7 +104,7 @@ class Home extends Component {
         if(this.rData.length===0){
             this.setState({
                 isLoading : true,
-                hasMore: false,
+                hasMore: true,
                 dataSource: this.state.dataSource.cloneWithRows(this.rData)
             })
             this.fetchData()
@@ -102,6 +118,12 @@ class Home extends Component {
             // this.fetchData()
         }
 
+    }
+
+    search(value) {
+        this.searchKey = value;
+        this.clearData();
+        this.fetchData();
     }
 
 
@@ -225,7 +247,10 @@ class Home extends Component {
                         <SearchBar placeholder="输入关键字搜索"
                                    onSubmit={value => {
                                        console.log(value, 'onSubmit')
-                                       this.init()
+                                       this.search(value)
+                                   }}
+                                   onClear={value=>{
+                                       this.search("")
                                    }}
                         />
 
