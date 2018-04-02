@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 
 import {Card, WhiteSpace, Flex} from 'antd-mobile';
 
-
+import "./MyComplaint.css"
 
 class ComplaintCard extends Component {
 
@@ -14,7 +14,7 @@ class ComplaintCard extends Component {
     render() {
         const complaint = this.props.complaint;
         return(
-            <div onClick={()=>{
+            <div  class="my-complaint-card" onClick={()=>{
                 this.context.router.history.push(
                     {
                         pathname:"/complaint-detail",
@@ -32,46 +32,40 @@ class ComplaintCard extends Component {
                         </div>}
                     />
 
-                    <Card.Body>
 
+                    <Card.Body style={{wordWrap:'break-word'}}>
                         <Flex>
-
-
-
-                            <div style={{paddingTop:'8px', flex:4, fontSize: '14px'}}>
+                            <div style={{flex:4}}>
                                 <div>
                                     <Flex>
-                                        <div style={{color:'#6e6eFF', flex:2}}>
-                                            [投诉对象]
+                                        <div style={{flex:2, color:'#108ee9'}}>
+                                            [投诉对象]:
                                         </div>
-                                        <div style={{color:'#000000', flex:5}}>
-                                            &nbsp;&nbsp;{complaint.objectName}
-                                        </div>
+                                        <div style={{flex:5}}>{complaint.objectName}</div>
                                     </Flex>
 
                                 </div>
-                                <WhiteSpace size="sm"/>
+                                <WhiteSpace size="md"/>
 
                                 <div>
                                     <Flex>
-                                        <div style={{color:'#6e6eFF', flex:2}}>
-                                            [投诉要求]
-                                        </div>
-                                        <div style={{color:'#000000', flex:5}}>
-                                            &nbsp;&nbsp;{complaint.request || complaint.requestAmount}
-                                        </div>
+                                    <span style={{flex:2, alignSelf:'flex-start'}}>
+                                        <span style={{color:'#108ee9'}}>[投诉要求]:</span>
+                                    </span>
+                                        <span style={{flex:5}}>{complaint.request}</span>
+
                                     </Flex>
 
                                 </div>
                             </div>
-                            <div style={{flex:1, paddingTop:'8px', paddingLeft:'16px', verticalAlign:'bottom'}}>
+                            <div style={{flex:1, paddingLeft:'16px', verticalAlign:'bottom'}}>
                                 <img src="./img/icon/done.png" style={{width: '64px', height:'64px', borderRadius:'50%'}}/>
                             </div>
-
                         </Flex>
 
-
                     </Card.Body>
+
+
                 </Card>
             </div>
         )

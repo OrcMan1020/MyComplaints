@@ -40,18 +40,19 @@ class Home extends Component {
             this.currentPage = window.current_complaints.currentPage;
             this.scrollY = window.current_complaints.scrollY;
             this.totalPages = window.current_complaints.totalPages;
-
+            this.searchKey = window.current_complaints.searchKey;
         }
         else {
             this.rData = []
             this.currentPage = 0
             this.scrollY = 0
-            this.totalPages = 0
+            this.totalPages = -1
+            this.searchKey = ""
+
         }
         // TODO
         // we need to store these data!!!
         this.pageSize = 5
-        this.searchKey = ""
 
         this.state = {
             // imgHeight: 176,
@@ -74,8 +75,9 @@ class Home extends Component {
         this.rData = []
         this.currentPage = 0
         this.scrollY = 0
-        this.totalPages = 0
+        this.totalPages = -1
         this.state.hasMore = true;
+        this.searchKey = "";
 
         window.current_complaints = {};
         // window.current_complaints.rData = this.rData;
@@ -121,8 +123,8 @@ class Home extends Component {
     }
 
     search(value) {
-        this.searchKey = value;
         this.clearData();
+        this.searchKey = value;
         this.fetchData();
     }
 
@@ -147,6 +149,14 @@ class Home extends Component {
                     this.setState({
                         data : data.content,
                         dataSource: this.state.dataSource.cloneWithRows(this.rData),
+                        isLoading: false,
+                        hasMore,
+                    })
+                }
+                else {
+                    this.setState({
+                        data : data.content,
+                        dataSource: this.state.dataSource.cloneWithRows([]),
                         isLoading: false,
                         hasMore,
                     })
@@ -224,7 +234,6 @@ class Home extends Component {
         }
         this.renderFooter = null;
         this.setState({isLoading: true });
-        // simulate initial Ajax
         this.fetchData();
     };
 
@@ -233,10 +242,11 @@ class Home extends Component {
             this.props.refresh = false
             this.currentPage = 0
             this.pageSize = 5
-            this.totalPages = 0
+            this.totalPages = -1
             this.rData = []
             this.searchKey = ""
             this.init();
+            return;
         }
         return (
 
@@ -245,6 +255,7 @@ class Home extends Component {
                 <div class="home-constainer">
                     <div class="home-search">
                         <SearchBar placeholder="输入关键字搜索"
+                                   defaultValue={this.searchKey}
                                    onSubmit={value => {
                                        console.log(value, 'onSubmit')
                                        this.search(value)
@@ -281,7 +292,7 @@ class Home extends Component {
                 <div className="mytabs" style={{paddingTop:'8px'}}>
 
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', backgroundColor: '#fff'}}>
-                        {this.renderList()}
+                        {this.rData.length>0?this.renderList():(this.totalPages==0?(<div style={{fontSize:"18px"}}>没有搜索到任何记录!</div>):null)}
 
                     </div>
 

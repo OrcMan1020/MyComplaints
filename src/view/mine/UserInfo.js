@@ -11,7 +11,7 @@ class UserInfo extends Component {
         let {userInfo} = this.props;
         const {creditScore} = userInfo;
         const userInfoDetail = userInfo.userInfo;
-        const {nickName, gender, language, city, province, country, avatarUrl} = userInfoDetail;
+        let {nickName, gender, language, city, province, country, avatarUrl} = userInfoDetail;
 
         return (
             <div class='user-info'>
@@ -19,14 +19,14 @@ class UserInfo extends Component {
                 <Flex>
                     <div class='user-info-content'>
                         <div class="avatar-content">
-                            <img src={avatarUrl}/>
+                            <img src={avatarUrl||userInfoDetail.headimgurl}/>
                         </div>
 
                     </div>
                     <div class='text-content'>
                         <div style={{fontSize:'20px', color:'#FFF'}}
                             onClick={()=>{}}>
-                            {nickName}
+                            {nickName|| userInfoDetail.nickname}
                             <span>&nbsp;&nbsp;</span>
                             <Icon type="right" size="md" style={{verticalAlign:'middle'}}/>
                         </div>

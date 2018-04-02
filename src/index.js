@@ -74,7 +74,8 @@ GetUserInfoById(id).then(userInfo=>{
 
 }).catch(e =>{
     Toast.hide();
-    Toast.fail("登录失败!!")
+    //Toast.fail("登录失败!!")
+    ReactDOM.render(<Router><App/></Router>, document.getElementById('root'));
 })
 
 

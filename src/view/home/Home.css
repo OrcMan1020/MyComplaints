@@ -11,6 +11,7 @@
     z-index: 1;
     /*border-style: solid;*/
     /*border-color: #ff0000 #0000ff*/
+
 }
 .home-carousel {
     position:absolute;
@@ -26,6 +27,10 @@
     background-color:rgba(1,1,1,0.1);
     border-radius: 16px;
     height:28px;
+}
+
+.home-constainer .am-search.am-search-start .am-search-input input[type="search"] {
+    color: #FFFFFF;
 }
 
 .home-constainer .am-search-input .am-search-clear-show {
